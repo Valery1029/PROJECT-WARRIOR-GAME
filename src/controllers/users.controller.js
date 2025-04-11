@@ -1,4 +1,6 @@
 import { connect } from "../config/db/connect.js";
+import {encryptPassword, comparePassword} from '../library/appBcrypt.js';
+import jwt from 'jsonwebtoken';
 
 // GET 
 export const showUsers = async (req, res) => {
@@ -28,10 +30,11 @@ export const addUser = async (req, res) => {
     if (!name || !email || !password) {
       return res.status(400).json({ error: "Missing required fields" });
     }
+    const hashedPassword = await encryptPassword(password);
     const sqlQuery = "INSERT INTO users (user_name, user_email, user_password) VALUES (?, ?, ?)";
-    const [result] = await connect.query(sqlQuery, [name, email, password]);
+    const [result] = await connect.query(sqlQuery, [name, email, hashedPassword]);
     res.status(201).json({
-      data: [{ id: result.insertId, name, email }],
+      data: [{ id: result.insertId, name, email, hashedPassword }],
       status: 201
     });
   } catch (error) {
@@ -72,5 +75,29 @@ export const deleteUser = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ error: "Error deleting user", details: error.message });
+  }
+};
+
+//Login
+export const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    let sqlQuery = "SELECT * FROM users WHERE user_email = ?";
+    const [result] = await connect.query(sqlQuery, email);
+    if (result.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const user = result[0];
+
+    const validPassword = await comparePassword(password, user.user_password);
+    if (!validPassword) {
+      return res.status(401).json({ error: "Incorrect password" });
+    }
+    const token = jwt.sign({ id: user.id, name: user.user_name, email: user.user_email }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+    });
+    res.json({ token });
+  } catch (error) {
+    res.status(500).json({ error: "Error during login", details: error.message });
   }
 };

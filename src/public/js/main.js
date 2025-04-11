@@ -274,4 +274,36 @@ class Main {
     const total2 = cards2.reduce((acc, c) => acc + c.power, 0);
     return total1 > total2 ? "Jugador 1 gana" : total2 > total1 ? "Jugador 2 gana" : "Empate";
   }
+
+  //Login
+  async loginUser(pos = 0) {
+    const formData = this.getDataFormJson(pos);
+  
+    try {
+      const res = await fetch("http://localhost:3000/gamev1/usersLogin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          api_user: formData.user,
+          api_password: formData.password
+        })
+      });
+  
+      const data = await res.json();
+  
+      if (!res.ok) {
+        alert(data.error || "Login fallido");
+        return;
+      }
+  
+      // Guardamos el token y redirigimos
+      localStorage.setItem("token", data.token);
+      this.setLocationPage("../../views/game/cards_view.html");
+    } catch (error) {
+      console.error("Error durante login:", error);
+      alert("Error en la conexión con el servidor");
+    }
+  }
 }
