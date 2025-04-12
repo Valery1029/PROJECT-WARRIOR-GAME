@@ -82,19 +82,18 @@ export const deleteUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    let sqlQuery = "SELECT * FROM users WHERE user_email = ?";
-    const [result] = await connect.query(sqlQuery, email);
+    const sqlQuery = "SELECT * FROM users WHERE user_email = ?";
+    const [result] = await connect.query(sqlQuery, [email]);
     if (result.length === 0) {
       return res.status(404).json({ error: "User not found" });
     }
     const user = result[0];
-
     const validPassword = await comparePassword(password, user.user_password);
     if (!validPassword) {
       return res.status(401).json({ error: "Incorrect password" });
     }
     const token = jwt.sign({ id: user.id, name: user.user_name, email: user.user_email }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
+      expiresIn: "1h",
     });
     res.json({ token });
   } catch (error) {

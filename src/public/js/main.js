@@ -2,237 +2,41 @@
  * Date: 11/04/2025
  */
 
-class Main {
-  constructor(modalId, formId, classEdit, preloadId) {
-    // Props de Main
-    this.myModal = Array.isArray(modalId)
-      ? modalId.map(id => new bootstrap.Modal(document.getElementById(id)))
-      : [new bootstrap.Modal(document.getElementById(modalId))];
-
-    this.myForm = Array.isArray(formId)
-      ? formId.map(id => document.getElementById(id))
-      : [document.getElementById(formId)];
-
-    this.classEdit = classEdit;
-    this.elementJson = {};
-    this.fromData = new FormData();
-    this.preload = document.getElementById(preloadId);
-
-    // Props de juego
+// Clase MainGame para manejar el juego
+class MainGame {
+  constructor() {
     this.maxCards = 5;
     this.selectedCards = [];
     this.currentPlayer = 1;
-    this.players = { 1: [], 2: [] };
+    this.players = {
+      1: [],
+      2: []
+    };
   }
 
-  // 🌀 Utilidades UI
-  showPreload() {
-    if (this.preload) this.preload.style.display = "block";
-  }
-
-  hiddenPreload() {
-    if (!this.preload) return;
-    let op = 1;
-    const fade = setInterval(() => {
-      if (op <= 0.1) {
-        this.preload.style.display = "none";
-        clearInterval(fade);
-      }
-      this.preload.style.opacity = op;
-      op -= 0.1;
-    }, 100);
-  }
-
-  showModal(pos = 0) {
-    this.myModal[pos].show();
-  }
-
-  hiddenModal(pos = 0) {
-    this.myModal[pos].hide();
-  }
-
-  setLocationPage(url) {
-    setTimeout(() => {
-      window.location.href = url;
-    }, 1000);
-  }
-
-  // 📝 Formularios
-  getForm(pos = 0) {
-    return this.myForm[pos];
-  }
-
-  resetForm(pos = 0) {
-    const inputs = this.myForm[pos].querySelectorAll("input");
-    const selects = this.myForm[pos].querySelectorAll("select");
-    inputs.forEach(i => (i.value = ""));
-    selects.forEach(s => (s.value = ""));
-    this.myForm[pos].reset();
-  }
-
-  getDataFormJson(pos = 0) {
-    const form = this.myForm[pos].querySelectorAll("input, select");
-    const data = {};
-    form.forEach(el => {
-      if (el.id) {
-        if (el.type === "checkbox") {
-          data[el.id] = el.checked;
-        } else {
-          data[el.id] = el.value.trim();
-        }
-      }
-    });
-    return data;
-  }
-
-  setDataFormJson(json, pos = 0) {
-    const elements = this.myForm[pos].querySelectorAll("input,select");
-    const keys = Object.keys(json);
-    for (const el of elements) {
-      if (keys.includes(el.id)) {
-        if (el.type === "checkbox") {
-          el.checked = json[el.id] ? true : false;
-        } else {
-          el.value = json[el.id];
-        }
-      }
-    }
-  }
-
-  setValidateForm(pos = 0) {
-    const form = this.myForm[pos];
-    const inputs = form.querySelectorAll("input");
-    const selects = form.querySelectorAll("select");
-    let valid = true;
-
-    inputs.forEach(input => {
-      if (!this.validateInput(input)) {
-        this.showMessageError(input);
-        valid = false;
-      }
-    });
-
-    selects.forEach(select => {
-      if (select.value === "0" || select.value === "") {
-        select.focus();
-        valid = false;
-      }
-    });
-
-    if (valid) this.hiddenMessageError();
-    return valid;
-  }
-
-  validateInput(input) {
-    switch (input.type) {
-      case "text": return this.validateText(input);
-      case "email": return this.validateEmail(input);
-      case "password": return this.validatePassword(input);
-      case "number": return this.validateNumber(input);
-      default: return true;
-    }
-  }
-
-  validateText(input) {
-    return input.value.trim().length >= 4;
-  }
-
-  validateEmail(input) {
-    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    return regex.test(input.value);
-  }
-
-  validatePassword(input) {
-    return input.value.length >= 8;
-  }
-
-  validateNumber(input) {
-    return !isNaN(input.value);
-  }
-
-  showMessageError(input) {
-    input.classList.add("error");
-    const span = document.createElement("span");
-    span.classList.add("message-error");
-    span.textContent = "Este campo es inválido";
-    input.parentNode.appendChild(span);
-  }
-
-  hiddenMessageError() {
-    document.querySelectorAll(".message-error").forEach(el => (el.innerHTML = ""));
-  }
-
-  // 📋 Tablas y selects
-  createTable(data, id, actions) {
-    const table = document.getElementById(id);
-    table.innerHTML = "";
-    let html = "";
-
-    data.forEach(row => {
-      let rowHtml = "";
-      const entries = Object.entries(row);
-      entries.forEach(([_, val]) => {
-        rowHtml += `<td>${val}</td>`;
-      });
-
-      if (actions) {
-        rowHtml += `<td class="text-center">
-          <div class="btn-group">
-            <button class="btn btn-warning" onclick="${LIST_CRUD[5]}(${entries[0][1]})"><i class="${LIST_CRUD_ICONS[5]}"></i></button>
-            <button class="btn btn-success" onclick="${LIST_CRUD[1]}(${entries[0][1]})"><i class="${LIST_CRUD_ICONS[1]}"></i></button>
-            <button class="btn btn-danger" onclick="${LIST_CRUD[3]}(${entries[0][1]})"><i class="${LIST_CRUD_ICONS[3]}"></i></button>
-          </div>
-        </td>`;
-      }
-
-      html += `<tr>${rowHtml}</tr>`;
-    });
-
-    table.innerHTML = html;
-  }
-
-  createSelect(data, id) {
-    const select = document.getElementById(id);
-    select.innerHTML = '<option selected value="">Selecciona una opción</option>';
-    data.forEach(item => {
-      const [idKey, nameKey] = Object.entries(item);
-      select.innerHTML += `<option value="${idKey[1]}">${nameKey[1]}</option>`;
-    });
-  }
-
-  createCard(data, containerId) {
-    const container = document.getElementById(containerId);
-    container.innerHTML = "";
-    data.forEach(item => {
-      container.innerHTML += `
-        <div class="card col-3 mx-auto" style="margin:0.28em;">
-          <img src="${item.image || '/img/default.jpg'}" class="card-img-top" alt="${item.name}">
-          <div class="card-body text-center">
-            <h5 class="card-title">${item.name}</h5>
-            <p class="card-text">Poder: ${item.power}</p>
-            <button class="btn btn-primary" onclick="alert(${item.id})">Seleccionar</button>
-          </div>
-        </div>`;
-    });
-  }
-
-  // 🃏 Funciones del juego de cartas
+  // Renderiza las cartas en el contenedor especificado
   renderCards(data, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
     container.innerHTML = "";
     data.forEach(card => {
-      container.innerHTML += `
-        <div class="card" onclick="game.selectCard(${card.id}, this)">
-          <img src="${card.image}" alt="${card.name}">
-          <h4>${card.name}</h4>
-          <p>Poder: ${card.power}</p>
+      const cardElement = document.createElement("div");
+      cardElement.className = "card card-game";
+      cardElement.innerHTML = `
+        <img src="${card.image}" class="card-img-top" alt="${card.name}">
+        <div class="card-body text-center">
+          <h5 class="card-title">${card.name}</h5>
+          <p class="card-text">Poder: ${card.power}</p>
         </div>
       `;
+
+      cardElement.onclick = () => this.selectCard(card.id, cardElement);
+      container.appendChild(cardElement);
     });
   }
 
+  // Seleccionar o deseleccionar una carta
   selectCard(cardId, cardElement) {
     if (this.selectedCards.includes(cardId)) {
       this.selectedCards = this.selectedCards.filter(id => id !== cardId);
@@ -242,10 +46,10 @@ class Main {
       cardElement.classList.add("selected");
     }
 
-    const counter = document.getElementById("counter");
-    if (counter) counter.textContent = this.selectedCards.length;
+    document.getElementById("counter").innerText = this.selectedCards.length;
   }
 
+  // Confirma la selección de cartas y cambia al siguiente jugador o pantalla (en proceso)
   confirmSelection() {
     if (this.selectedCards.length !== this.maxCards) {
       alert("Debes seleccionar exactamente 5 cartas.");
@@ -263,47 +67,102 @@ class Main {
       window.location.href = "/battle";
     }
   }
+}
 
-  loadPlayersFromStorage() {
-    this.players[1] = JSON.parse(localStorage.getItem("player1")) || [];
-    this.players[2] = JSON.parse(localStorage.getItem("player2")) || [];
+// Clase Main para manejar la comunicación con el API
+class Main {
+  constructor() {
+    this.preloadElement = document.getElementById("preloadId");
+    this.init();
   }
 
-  simulateBattle(cards1, cards2) {
-    const total1 = cards1.reduce((acc, c) => acc + c.power, 0);
-    const total2 = cards2.reduce((acc, c) => acc + c.power, 0);
-    return total1 > total2 ? "Jugador 1 gana" : total2 > total1 ? "Jugador 2 gana" : "Empate";
+  // Inicializa el Main y oculta el precargador
+  init() {
+    this.hidePreload();
   }
 
-  //Login
-  async loginUser(pos = 0) {
-    const formData = this.getDataFormJson(pos);
-  
+  hidePreload() {
+    if (this.preloadElement) {
+      setTimeout(() => this.preloadElement.style.display = "none", 1000);
+    }
+  }
+
+  // Obtiene datos desde un formulario
+  getFormData(formId) {
+    const form = document.getElementById(formId);
+    const data = new FormData(form);
+    return Object.fromEntries(data.entries());
+  }
+
+  // Cambia la ubicación de la página
+  setLocationPage(path) {
+    window.location.href = path;
+  }
+
+  // Hace una petición fetch al API
+  async fetchData(url, method = "GET", data = null) {
     try {
-      const res = await fetch("http://localhost:3000/gamev1/usersLogin", {
-        method: "POST",
+      const options = {
+        method,
         headers: {
           "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          api_user: formData.user,
-          api_password: formData.password
-        })
-      });
-  
-      const data = await res.json();
-  
-      if (!res.ok) {
-        alert(data.error || "Login fallido");
-        return;
+        }
+      };
+
+      if (data) {
+        options.body = JSON.stringify(data);
       }
-  
-      // Guardamos el token y redirigimos
-      localStorage.setItem("token", data.token);
-      this.setLocationPage("../../views/game/cards_view.html");
-    } catch (error) {
-      console.error("Error durante login:", error);
-      alert("Error en la conexión con el servidor");
+
+      const res = await fetch(url, options);
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || "Error en la petición");
+      return result;
+
+    } catch (err) {
+      console.error("Error:", err.message);
+      throw err;
+    }
+  }
+
+  // Trae los guerreros desde el API y los mapea al formato de carta
+  async fetchWarriors() {
+    try {
+      const data = await this.fetchData("http://localhost:3000/gamev1/warriors");
+
+      return data.map(warrior => ({
+        id: warrior.warrior_id,
+        name: warrior.warrior_name,
+        power: warrior.warrior_total_power,
+        image: `../img/cards/${warrior.warrior_name.toLowerCase()}.jpg`
+      }));
+
+    } catch (err) {
+      console.error("Error al cargar los guerreros:", err.message);
+      throw err;
     }
   }
 }
+
+// Instancias globales
+const main = new Main(); // Instancia de la clase Main
+const game = new MainGame(); // Instancia de la clase MainGame
+window.game = game;
+
+// Manejo de eventos al cargar la página
+window.onload = async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const jugador = urlParams.get("player") || 1;
+  document.getElementById("player").textContent = jugador;
+  game.currentPlayer = parseInt(jugador);
+
+  try {
+    // Obtén las cartas dinámicamente desde el API utilizando la función fetchWarriors
+    const cartas = await main.fetchWarriors();
+
+    // Renderiza las cartas en el contenedor
+    game.renderCards(cartas, "card-container");
+  } catch (error) {
+    console.error("No se pudieron cargar las cartas:", error);
+    alert("Hubo un problema al cargar las cartas. Revisa la conexión con el API.");
+  }
+};

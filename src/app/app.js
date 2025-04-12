@@ -2,6 +2,7 @@
 Date: 07/04/2025 */
 
 import express from 'express';
+import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -19,6 +20,13 @@ import apiUsersRoutes from '../routes/apiUsers.routes.js';
 
 const app = express();
 
+// Activar CORS
+app.use(cors({
+  origin: 'http://127.0.0.1:5500',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+
 // Obtener ruta base (__dirname con ES Modules)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,10 +34,10 @@ const __dirname = path.dirname(__filename);
 // Middleware para leer JSON
 app.use(express.json());
 
-// Servir archivos estáticos (JS, CSS, imágenes)
+// Servir archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Servir vistas HTML (puedes agregar más si tienes otras)
+// Vistas HTML
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'login.html'));
 });
@@ -38,10 +46,10 @@ app.get('/game/user1', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'game', 'user1_view.html'));
 });
 
-// Rutas de la API
+// Rutas API
 app.use('/gamev1', powersRoutes);
 app.use('/gamev1', spellsRoutes);
-app.use('/gamev1', typeWarriorRoutes);  // Solo una vez
+app.use('/gamev1', typeWarriorRoutes);
 app.use('/gamev1', racesRoutes);
 app.use('/gamev1', usersRoutes);
 app.use('/gamev1', warriorsRoutes);
