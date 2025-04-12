@@ -55,18 +55,22 @@ class MainGame {
       alert("Debes seleccionar exactamente 5 cartas.");
       return;
     }
-
+  
+    // Guarda las cartas seleccionadas del jugador actual
     this.players[this.currentPlayer] = [...this.selectedCards];
+    localStorage.setItem(`player${this.currentPlayer}`, JSON.stringify(this.players[this.currentPlayer]));
+  
     this.selectedCards = [];
-
+  
+    // Alternar entre jugadores o pasar a la vista de batalla
     if (this.currentPlayer === 1) {
-      localStorage.setItem("player1", JSON.stringify(this.players[1]));
-      window.location.href = "/select-cards?player=2";
+      // Cambiar a jugador 2 y recargar la página
+      window.location.href = "../../views/game/cards_view.html?player=2";
     } else {
-      localStorage.setItem("player2", JSON.stringify(this.players[2]));
-      window.location.href = "/battle";
+      // Ambos jugadores listos, pasar a la vista de batalla
+      window.location.href = "../../views/game/battle_view.html";
     }
-  }
+  }  
 }
 
 // Clase Main para manejar la comunicación con el API
@@ -128,14 +132,16 @@ class Main {
   async fetchWarriors() {
     try {
       const data = await this.fetchData("http://localhost:3000/gamev1/warriors");
-
-      return data.map(warrior => ({
-        id: warrior.warrior_id,
-        name: warrior.warrior_name,
-        power: warrior.warrior_total_power,
-        image: `../img/cards/${warrior.warrior_name.toLowerCase()}.jpg`
-      }));
-
+      return data.map(warrior => {
+        // Genera la ruta de la imagen, reemplazando espacios por guiones bajos
+        const imagePath = `../../public/img/cards/${warrior.warrior_name.toLowerCase().replace(/\s/g, '_')}.jpg`;
+        return {
+          id: warrior.warrior_id,
+          name: warrior.warrior_name,
+          power: warrior.warrior_total_power,
+          image: imagePath // Ruta dinámica
+        };
+      });
     } catch (err) {
       console.error("Error al cargar los guerreros:", err.message);
       throw err;
@@ -151,18 +157,16 @@ window.game = game;
 // Manejo de eventos al cargar la página
 window.onload = async () => {
   const urlParams = new URLSearchParams(window.location.search);
-  const jugador = urlParams.get("player") || 1;
+  const jugador = urlParams.get("player") || 1; // Por defecto, jugador 1
   document.getElementById("player").textContent = jugador;
   game.currentPlayer = parseInt(jugador);
 
   try {
-    // Obtén las cartas dinámicamente desde el API utilizando la función fetchWarriors
+    // Cargar cartas dinámicas desde el API
     const cartas = await main.fetchWarriors();
-
-    // Renderiza las cartas en el contenedor
     game.renderCards(cartas, "card-container");
   } catch (error) {
     console.error("No se pudieron cargar las cartas:", error);
-    alert("Hubo un problema al cargar las cartas. Revisa la conexión con el API.");
+    alert("Hubo un problema al cargar las cartas.");
   }
 };
