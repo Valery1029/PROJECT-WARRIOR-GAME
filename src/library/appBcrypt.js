@@ -17,7 +17,7 @@ export const encryptPassword = async (password) => {
 // Comparar contraseña
 export const comparePassword = async (password, hashedPassword) => {
   try {
-    const match = await appBcrypt.hash(password, hashedPassword);
+    const match = await appBcrypt.compare(password, hashedPassword);
     return match;
   } catch (error) {
     console.error('Error compare the hash: ', error);

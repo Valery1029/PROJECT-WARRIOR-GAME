@@ -46,6 +46,7 @@ function startBattle(jugador1, jugador2) {
   const total1 = totalPoder1 + totalMagia1;
   const total2 = totalPoder2 + totalMagia2;
 
+  // En la consola se ve la sumatoria de los poderes y magia de los guerreros
   console.log("Resultado", total1);
   let resultado = "";
   

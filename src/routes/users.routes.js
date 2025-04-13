@@ -10,13 +10,13 @@ import {
   deleteUser,
   loginUser
 } from '../controllers/users.controller.js';
-// import { verifyToken } from '../middleware/authMiddleware.js';
+import { verifyToken } from '../middleware/authMiddleware.js';
 
 const router = Router();
 const apiName = '/users';
 
 router.route(apiName)
-  .get(showUsers)
+  .get(verifyToken, showUsers)
   .post(addUser);
 
 router.route('/usersLogin')

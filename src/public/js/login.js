@@ -2,27 +2,39 @@
  * Date: 11/04/2025
  */
 
-import Main from "./main.js";
-const app = new Main();
+const form = document.getElementById("my-form");
+const errorMsg = document.getElementById("errorMsg");
 
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("my-form");
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-    const formData = app.getFormData("my-form");
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-    try {
-      const data = await app.fetchData("http://localhost:3000/gamev1/usersLogin", "POST", {
-        api_user: formData.user,
-        api_password: formData.password
-      });
+  try {
+    const response = await fetch("http://localhost:3000/gamev1/usersLogin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, password })
+    });
 
-      localStorage.setItem("token", data.token);
-      app.setLocationPage("../../views/game/cards_view.html");
+    const data = await response.json();
 
-    } catch (err) {
-      alert(err.message);
+    if (!response.ok) {
+      errorMsg.textContent = data.error || "Error al iniciar sesión";
+      return;
     }
-  });
+
+    // Guardar token si lo necesitas
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+
+    // Redirigir a la vista cards_view
+    window.location.href = "../../views/game/cards_view.html";
+  } catch (error) {
+    errorMsg.textContent = "Error de conexión con el servidor.";
+    console.error("Error en el login:", error);
+  }
 });

@@ -49,8 +49,9 @@ export const updateUser = async (req, res) => {
     if (!name || !email || !password) {
       return res.status(400).json({ error: "Missing required fields" });
     }
+    const hashedPassword = await encryptPassword(password);
     const sqlQuery = "UPDATE users SET user_name=?, user_email=?, user_password=? WHERE user_id=?";
-    const [result] = await connect.query(sqlQuery, [name, email, password, req.params.id]);
+    const [result] = await connect.query(sqlQuery, [name, email, hashedPassword, req.params.id]);
     if (result.affectedRows === 0) return res.status(404).json({ error: "User not found" });
     res.status(200).json({
       data: [{ id: req.params.id, name, email }],
@@ -92,7 +93,7 @@ export const loginUser = async (req, res) => {
     if (!validPassword) {
       return res.status(401).json({ error: "Incorrect password" });
     }
-    const token = jwt.sign({ id: user.id, name: user.user_name, email: user.user_email }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user.user_id, name: user.user_name, email: user.user_email }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
     res.json({ token });
