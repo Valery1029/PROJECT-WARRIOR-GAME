@@ -33,12 +33,13 @@ export const addWarrior = async (req, res) => {
       intelligence,
       status,
       type_warrior_id,
-      race_id
+      race_id,
+      image
     } = req.body;
 
     if (
       !name || total_power == null || total_magic == null || health == null ||
-      speed == null || intelligence == null || !status || !type_warrior_id || !race_id
+      speed == null || intelligence == null || !status || !type_warrior_id || !race_id || !image
     ) {
       return res.status(400).json({ error: "Missing required fields" });
     }
@@ -47,11 +48,11 @@ export const addWarrior = async (req, res) => {
       INSERT INTO warriors (
         warrior_name, warrior_total_power, warrior_total_magic,
         warrior_health, warrior_speed, warrior_intelligence,
-        warrior_status, type_warrior_id, race_id
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        warrior_status, type_warrior_id, race_id, warrior_image = ?
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     const [result] = await connect.query(sqlQuery, [
-      name, total_power, total_magic, health, speed, intelligence, status, type_warrior_id, race_id
+      name, total_power, total_magic, health, speed, intelligence, status, type_warrior_id, race_id, image
     ]);
 
     res.status(201).json({
@@ -75,12 +76,13 @@ export const updateWarrior = async (req, res) => {
       intelligence,
       status,
       type_warrior_id,
-      race_id
+      race_id,
+      image
     } = req.body;
 
     if (
       !name || total_power == null || total_magic == null || health == null ||
-      speed == null || intelligence == null || !status || !type_warrior_id || !race_id
+      speed == null || intelligence == null || !status || !type_warrior_id || !race_id || !image
     ) {
       return res.status(400).json({ error: "Missing required fields" });
     }
@@ -89,12 +91,12 @@ export const updateWarrior = async (req, res) => {
       UPDATE warriors SET
         warrior_name = ?, warrior_total_power = ?, warrior_total_magic = ?,
         warrior_health = ?, warrior_speed = ?, warrior_intelligence = ?,
-        warrior_status = ?, type_warrior_id = ?, race_id = ?
+        warrior_status = ?, type_warrior_id = ?, race_id = ?, warrior_image = ?
       WHERE warrior_id = ?`;
 
     const [result] = await connect.query(sqlQuery, [
       name, total_power, total_magic, health, speed, intelligence, status,
-      type_warrior_id, race_id, req.params.id
+      type_warrior_id, race_id, image, req.params.id
     ]);
 
     if (result.affectedRows === 0) return res.status(404).json({ error: "Warrior not found" });
