@@ -1,9 +1,20 @@
 /* Author: Valery Escobar
  * Date: 11/04/2025
  */
+
+/* ──────────────── GLOBALES ──────────────── */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+/* Errores */
 .message-error {
   color: red;
 }
+
+/* Preload */
 .preload {
   position: fixed;
   top: 0;
@@ -16,12 +27,80 @@
   display: none;
 }
 
+/* ──────────────── LOGIN ──────────────── */
+.login-page {
+  background: url('../../public/img/logos/login.png') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+}
+
+.login-container {
+  position: absolute;
+  top: 27vh;
+  left: 3vw;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 400px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.login-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.login-logo {
+  width: 120px;
+  display: block;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.form-control,
+.btn {
+  border-radius: 12px;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #ff0033, #ff4d4d);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #cc0022, #ff1a1a);
+}
+
+/* ──────────────── SELECCIÓN DE CARTAS ──────────────── */
+.cards-page {
+  background: url('../../public/img/logos/fondo.png') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 2rem;
+}
+
 .card-game {
   width: 200px;
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
   border-radius: 10px;
   overflow: hidden;
+}
+
+.card-game img {
+  height: 180px;
+  width: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .card-game:hover {
@@ -32,21 +111,6 @@
 .card-game.selected {
   box-shadow: 0 0 12px 4px red;
   border: 2px solid red;
-}
-
-.card-game img {
-  height: 180px;
-  width: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  padding: 2rem;
 }
 
 .btn-next {

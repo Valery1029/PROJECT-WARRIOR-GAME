@@ -47,13 +47,14 @@ function startBattle(jugador1, jugador2) {
   const total2 = totalPoder2 + totalMagia2;
 
   // En la consola se ve la sumatoria de los poderes y magia de los guerreros
-  console.log("Resultado", total1);
+  console.log("Resultado jugador1", total1);
+  console.log("Resultado jugador2", total2);
   let resultado = "";
   
   if (total1 > total2) {
-    resultado = "¡Jugador 1 gana la batalla!";
+    resultado = "¡Jugador 1 gana la batalla! con un puntaje de: " + total1;
   } else if (total2 > total1) {
-    resultado = "¡Jugador 2 gana la batalla!";
+    resultado = "¡Jugador 2 gana la batalla! con un puntaje de: " + total2;
   } else {
     resultado = "¡Es un empate!";
   }
