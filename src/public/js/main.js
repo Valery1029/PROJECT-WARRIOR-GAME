@@ -36,8 +36,6 @@ class Game {
         <img src="${warrior.warrior_image}" class="card-img-top" alt="${warrior.warrior_name}">
         <div class="card-body">
           <h5 class="card-title">${warrior.warrior_name}</h5>
-          <p class="card-text">Poder: ${warrior.warrior_total_power}</p>
-          <p class="card-text">Magia: ${warrior.warrior_total_magic}</p>
         </div>
       `;
 
@@ -54,16 +52,16 @@ class Game {
     const index = this.selectedCards.findIndex(w => w.warrior_id === warrior.warrior_id);
     if (index >= 0) {
       this.selectedCards.splice(index, 1);
-      cardElement.classList.remove('border', 'border-warning', 'border-3');
+      cardElement.classList.remove('selected'); // Quita el borde rojo
     } else if (this.selectedCards.length < 5) {
       this.selectedCards.push(warrior);
-      cardElement.classList.add('border', 'border-warning', 'border-3');
+      cardElement.classList.add('selected'); // Agrega el borde rojo
     } else {
       alert("Solo puedes seleccionar 5 cartas.");
     }
-
+  
     document.getElementById("counter").textContent = this.selectedCards.length;
-  }
+  }  
 
   confirmSelection() {
     if (this.selectedCards.length !== 5) {

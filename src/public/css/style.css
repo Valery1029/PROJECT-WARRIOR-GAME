@@ -27,6 +27,17 @@ body {
   display: none;
 }
 
+/* Textos*/
+h2, p {
+  font-family: 'Bangers', cursive;
+  text-transform: uppercase; /* Hace que se vea más dinámico */
+}
+
+h2, p {
+  color: white;
+  text-shadow: 0px 0px 10px rgba(255, 0, 0, 0.8); /* Brillo rojo */
+}
+
 /* ──────────────── LOGIN ──────────────── */
 .login-page {
   background: url('../../public/img/logos/login.png') no-repeat center center fixed;
@@ -88,32 +99,81 @@ body {
   padding: 2rem;
 }
 
+.card-body {
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: transparent !important;
+}
+
 .card-game {
-  width: 200px;
+  flex: calc(20% - 1rem);
+  max-width: 200px;
   cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
   border-radius: 10px;
   overflow: hidden;
 }
 
+.card {
+  width: 300px;
+  height: 380px;
+  background-color: transparent !important;
+  border: none !important;
+}
+
 .card-game img {
-  height: 180px;
+  height: 100%;
   width: 100%;
   object-fit: cover;
   display: block;
 }
 
+.card-title {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
+  font-family: "Poppins", sans-serif;
+  color: white;
+  text-shadow: 2px 2px 10px black;
+  font-weight: bold;
+  background-color: transparent;
+  padding: 5px;
+}
+
 .card-game:hover {
   transform: scale(1.07);
-  box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+  box-shadow: 20px 20px 20px rgba(255, 0, 0, 0.3);
 }
 
 .card-game.selected {
-  box-shadow: 0 0 12px 4px red;
-  border: 2px solid red;
+  border-radius: 10px;
+  outline: 3px solid red;
+  box-shadow: 0 0 8px 3px rgba(255, 0, 0, 0.8);
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 40px;
 }
 
 .btn-next {
-  margin: 2rem auto;
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 15px 30px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #ff0000, #8b0000);
+  color: white;
+  border: none;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+  transition: all 0.3s ease-in-out;
   display: block;
+  margin: 20px auto;
+}
+
+.btn-next:hover {
+  background: linear-gradient(90deg, #b30000, #660000);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 1);
+  transform: scale(1.1);
 }
