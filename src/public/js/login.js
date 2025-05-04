@@ -2,10 +2,19 @@
  * Date: 11/04/2025
  */
 
-const loginForm = document.getElementById("loginForm");
+const loginForm = document.getElementById("loginForm"); 
 const registerForm = document.getElementById("registerForm");
 const toggleRegister = document.getElementById("toggle-register");
 const toggleLogin = document.getElementById("toggle-login");
+
+// Funciones para limpiar formularios
+function clearLoginForm() {
+  loginForm.reset();
+}
+
+function clearRegisterForm() {
+  registerForm.reset();
+}
 
 // LOGIN
 loginForm.addEventListener("submit", async (e) => {
@@ -30,9 +39,14 @@ loginForm.addEventListener("submit", async (e) => {
       return;
     }
 
+    // Guardar token y usuario
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data.user));
 
+    // Limpiar formulario
+    clearLoginForm();
+
+    // Redirigir
     window.location.href = "../../views/game/cards_view.html";
   } catch (error) {
     alert("Error de conexión con el servidor.");
@@ -71,6 +85,11 @@ registerForm.addEventListener("submit", async (e) => {
     }
 
     alert("¡Cuenta creada con éxito! Ahora puedes iniciar sesión.");
+
+    // Limpiar formulario
+    clearRegisterForm();
+
+    // Cambiar a vista de login
     toggleLogin.click();
   } catch (error) {
     alert("Error al registrar la cuenta.");
