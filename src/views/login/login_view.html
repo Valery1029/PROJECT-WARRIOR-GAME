@@ -22,8 +22,8 @@
   <div class="container">
     <div class="login-container">
       <div class="login-header">Hello! Welcome Back</div>
-
-      <form id="my-form">
+      <!--Formulario Login-->
+      <form id="loginForm">
         <div class="mb-3">
           <label for="email" class="form-label">Email address</label>
           <input type="email" class="form-control" id="email" name="user" placeholder="name@example.com" required>
@@ -40,11 +40,37 @@
         <div class="text-center mt-3">
           <a href="#" class="text-light" data-bs-toggle="modal" data-bs-target="#my-modal">Forgot Password?</a>
         </div>
+        <div class="text-center mt-4">
+          <span>Don't have an account? <a href="#" id="toggle-register" class="text-warning">Create Account</a></span>
+        </div>
       </form>
+      <!--Formulario Registro-->
+      <form id="registerForm" style="display: none;">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="name" class="form-control" id="register-name" name="register-name" placeholder="player name" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="register-email" name="register-email" placeholder="name@example.com" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="register-password" placeholder="register-password" required>
+        </div>
+        <div class="mb-3">
+          <label>Confirm Password</label>
+          <input type="password" id="register-confirm" class="form-control" placeholder="Repeat Password" required />
+        </div>
 
-      <div class="text-center mt-4">
-        <span>Don't have an account? <a href="#" class="text-warning">Create Account</a></span>
-      </div>
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+
+        <div class="text-center mt-4">
+          <span>Already have an account? <a href="#" id="toggle-login" class="text-warning">Login</a></span>
+        </div>
+      
     </div>
   </div>
 
@@ -60,7 +86,7 @@
           <form id="my-form-changes-password">
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="email-recover" name="email" placeholder="name@example.com" required>
+              <input type="email" class="form-control" id="email-recover" name="email" placeholder="name@example.com">
             </div>
           </form>
         </div>
