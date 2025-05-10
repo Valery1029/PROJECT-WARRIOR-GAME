@@ -20,17 +20,16 @@ function renderBattleCards(cartas, containerId) {
 
   cartas.forEach(warrior => {
     const card = document.createElement('div');
-    card.classList.add('card', 'm-2', 'bg-secondary', 'text-white', 'card-game');
-    card.style.width = '10rem';
+      card.classList.add('card', 'm-2', 'bg-secondary', 'text-white', 'card-game');
+      card.style.width = '12rem';
+      card.style.cursor = 'pointer';
 
-    card.innerHTML = `
-      <img src="${warrior.warrior_image}" class="card-img-top" alt="${warrior.warrior_name}">
-      <div class="card-body">
-        <h6>${warrior.warrior_name}</h6>
-        <small>Poder: ${warrior.warrior_total_power}</small><br>
-        <small>Magia: ${warrior.warrior_total_magic}</small>
-      </div>
-    `;
+      card.innerHTML = `
+        <img src="${warrior.warrior_image}" class="card-img-top" alt="${warrior.warrior_name}">
+        <div class="card-body">
+          <h5 class="card-title">${warrior.warrior_name}</h5>
+        </div>
+      `;
 
     container.appendChild(card);
   });
