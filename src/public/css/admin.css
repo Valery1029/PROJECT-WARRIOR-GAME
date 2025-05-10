@@ -1,0 +1,108 @@
+/* ──────────────── DASHBOARD ──────────────── */
+.dashboard-page {
+  background: url('../../public/img/logos/fondo.png') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  padding: 40px 20px;
+  color: white;
+}
+
+.dashboard-container {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+  max-width: 1000px;
+  margin: auto;
+}
+
+.dashboard-title {
+  font-family: 'Bangers', cursive;
+  font-size: 2rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 30px;
+  text-shadow: 0px 0px 12px red;
+}
+
+.card-form .form-label {
+  font-weight: bold;
+  color: #ff4d4d;
+}
+
+.card-form .form-control {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid #ff4d4d;
+  color: white;
+}
+
+.card-form .form-control::placeholder {
+  color: #ccc;
+}
+
+.card-form .btn-success {
+  background: linear-gradient(90deg, #00cc66, #00b359);
+  border: none;
+  font-weight: bold;
+}
+
+.card-form .btn-success:hover {
+  background: linear-gradient(90deg, #00994d, #008040);
+}
+
+.dashboard-cards {
+  margin-top: 30px;
+}
+
+.dashboard-cards .card {
+  border: 1px solid #ff4d4d;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s ease-in-out;
+}
+
+.dashboard-cards .card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 10px red;
+}
+
+.dashboard-cards .card-title {
+  font-size: 1.2rem;
+  color: #fff;
+  text-shadow: 1px 1px 5px black;
+}
+
+.dashboard-cards .btn-warning {
+  background-color: #ffcc00;
+  border: none;
+  font-weight: bold;
+}
+
+.dashboard-cards .btn-danger {
+  background-color: #cc0000;
+  border: none;
+  font-weight: bold;
+}
+
+.dashboard-cards .btn:hover {
+  opacity: 0.85;
+}
+
+.logout-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  border-radius: 50px;
+  background: linear-gradient(90deg, #ff0000, #8b0000);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+  transition: all 0.3s;
+  z-index: 1000;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(90deg, #b30000, #660000);
+  transform: scale(1.05);
+}
