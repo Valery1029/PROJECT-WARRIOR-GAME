@@ -10,12 +10,40 @@
   <link rel="stylesheet" href="../../public/css/admin.css" />
 </head>
 <body class="dashboard-page">
-
-  <nav class="navbar navbar-dark bg-danger px-4">
-    <span class="navbar-brand mb-0 h1">Dashboard de Cartas</span>
-    <button id="logoutBtn" class="btn btn-light">Cerrar sesión</button>
+  <!--NavBar-->
+  <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
+    <div class="container-fluid">
+    <a class="navbar-brand" href="#"><img src="../../public/img/logos/jjk.jpg" class="img img-fluid" width="50"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)">Cards</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)">Powers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)">Races</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">More</a>
+          <ul class="dropdown-menu bg-danger navbar-dark">
+            <li><a class="dropdown-item" href="#">Spells</a></li>
+            <li><a class="dropdown-item" href="#">Type of warrior</a></li>
+            <li><a class="dropdown-item" href="#">Matches</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <button class="btn btn-light" type="button">Cerrar Sesión</button>
+      </form>
+    </div>
   </nav>
 
+  <!--Agregar Cartas-->
   <div class="container py-4">
     <div class="text-end mb-3">
       <button id="addCardBtn" class="btn btn-success">
