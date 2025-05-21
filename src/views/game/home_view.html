@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="../../public/img/logos/jjk.jpg">
+  <title>Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="../../public/css/home.css" />
+</head>
+<body class="home-page">
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="bg-dark text-white p-3 vh-100" style="min-width: 250px;">
+      <div class="text-center mb-4">
+        <img src="../../public/img/logos/jjk.jpg" alt="Logo" width="60" class="rounded-circle">
+        <h4 class="mt-2">Player</h4>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link text-white"><i class="bi bi-card-list me-2"></i>Home</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link text-white"><i class="bi bi-people-fill me-2"></i>Perfil</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link text-white"><i class="bi bi-lightning-charge-fill me-2"></i>Ranking</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link text-white"><i class="bi bi-controller me-2"></i>Partidas</a>
+        </li>
+      </ul>
+      <button class="logout-btn mt-4">Cerrar Sesión</button>
+    </div>
+    <!-- Cartas de opciones -->
+    <div class="home-card-container">
+      <!-- Nueva Partida -->
+      <a href="#" class="home-card text-decoration-none">
+        <div class="home-card-icon">🎮</div>
+        <h5 class="home-card-title">Nueva Partida</h5>
+        <p class="home-card-text">Inicia un nuevo enfrentamiento y selecciona tus cartas.</p>
+      </a>
+
+      <!-- Historial -->
+      <a href="#" class="home-card text-decoration-none">
+        <div class="home-card-icon">📜</div>
+        <h5 class="home-card-title">Historial de Partidas</h5>
+        <p class="home-card-text">Consulta tus partidas anteriores y estadísticas.</p>
+      </a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../public/js/admin.js"></script>
+</body>
+</html>
