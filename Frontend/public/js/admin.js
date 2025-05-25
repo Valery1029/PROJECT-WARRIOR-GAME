@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const lifeInput = document.getElementById("life");
   const speedInput = document.getElementById("speed");
   const intelligenceInput = document.getElementById("intelligence");
-  const statusInput = document.getElementById("status");
   const imageInput = document.getElementById("image");
   const typeWarriorInput = document.getElementById("type_warrior");
   const raceInput = document.getElementById("race");
@@ -39,7 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
               Vida: ${card.warrior_health} <br>
               Velocidad: ${card.warrior_speed} <br>
               Inteligencia: ${card.warrior_intelligence} <br>
-              Estado: ${card.warrior_status} <br>
               Tipo de Guerrero: ${card.type_warrior_id} <br>
               Raza: ${card.race_id}
             </p>
@@ -76,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
     lifeInput.value = card.warrior_health;
     speedInput.value = card.warrior_speed;
     intelligenceInput.value = card.warrior_intelligence;
-    statusInput.value = card.warrior_status;
     typeWarriorInput.value = card.type_warrior_id;
     raceInput.value = card.race_id;
 
@@ -112,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
       health: +lifeInput.value,
       speed: +speedInput.value,
       intelligence: +intelligenceInput.value,
-      status: statusInput.value,
       type_warrior_id: +typeWarriorInput.value,
       race_id: +raceInput.value,
       image: imageInput.files[0] ? `../img/cards/${imageInput.files[0].name}` : ""

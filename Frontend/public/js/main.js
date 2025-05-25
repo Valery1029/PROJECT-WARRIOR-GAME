@@ -79,7 +79,21 @@ class Game {
       window.location.href = `battle_view.html`;
     }
   }
+
+  
+
 }
 
 const main = new Main();
 const game = new Game();
+
+const sidebar = document.getElementById("sidebarOffcanvas");
+  const toggleBtn = document.querySelector(".sidebar-toggle-btn");
+
+  sidebar.addEventListener("shown.bs.offcanvas", () => {
+    toggleBtn.style.display = "none";
+  });
+
+  sidebar.addEventListener("hidden.bs.offcanvas", () => {
+    toggleBtn.style.display = "block";
+  });

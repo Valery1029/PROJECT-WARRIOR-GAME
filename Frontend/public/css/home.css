@@ -43,6 +43,9 @@
   border-radius: 8px;
   background: linear-gradient(90deg, #ff0000, #8b0000);
   font-weight: bold;
+  color: white;
+  padding: 0.5rem;
+  border: none;
 }
 
 /* Selección */

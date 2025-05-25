@@ -47,7 +47,7 @@ loginForm.addEventListener("submit", async (e) => {
     clearLoginForm();
 
     // Redirigir
-    window.location.href = "../../views/game/cards_view.html";
+    window.location.href = "../../views/home/home_view.html";
   } catch (error) {
     alert("Error de conexión con el servidor.");
     console.error("Error en el login:", error);

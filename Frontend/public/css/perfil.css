@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: url('../../public/img/logos/fondo.png') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+
+    .profile-container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+    }
+
+    .profile-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .profile-header h2 {
+      color: #ff4d4d;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ff4d4d;
+    }
+
+    .profile-info label {
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    .profile-info .form-control {
+      background: #1a1a1a;
+      border: 1px solid #444;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .btn-danger {
+      background: linear-gradient(90deg, #ff0000, #8b0000);
+      border: none;
+    }
+
+    .btn-danger:hover {
+      background: linear-gradient(90deg, #b30000, #660000);
+    }
+
+    .edit-btn {
+      display: flex;
+      justify-content: end;
+    }

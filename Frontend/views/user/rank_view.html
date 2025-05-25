@@ -10,17 +10,30 @@
   <link rel="stylesheet" href="../../public/css/admin.css" />
 </head>
 <body class="dashboard-page">
-
-  <!-- NavBar -->
-  <nav class="navbar navbar-expand-sm bg-danger navbar-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#"><img src="../../public/img/logos/jjk.jpg" class="img img-fluid" width="50"></a>
-      <span class="navbar-text text-white fw-bold">Ranking de Jugadores</span>
-      <form class="d-flex">
-        <button class="btn btn-light" type="button">Salir</button>
-      </form>
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="bg-dark text-white p-3 vh-100" style="min-width: 250px;">
+      <div class="text-center mb-4">
+        <img src="../../public/img/logos/jjk.jpg" alt="Logo" width="60" class="rounded-circle">
+        <h4 class="mt-2">Player</h4>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link text-white"><i class="bi bi-card-list me-2"></i>Home</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link text-white"><i class="bi bi-people-fill me-2"></i>Perfil</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link text-white"><i class="bi bi-lightning-charge-fill me-2"></i>Ranking</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link text-white"><i class="bi bi-controller me-2"></i>Partidas</a>
+        </li>
+      </ul>
+      <button class="logout-btn mt-4">Cerrar Sesión</button>
     </div>
-  </nav>
+  </div>
 
   <!-- Tabla -->
   <div class="container py-4">

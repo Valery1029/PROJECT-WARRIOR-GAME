@@ -116,7 +116,7 @@ h2, p {
 
 .card {
   width: 300px;
-  height: 380px;
+  height: 320px;
   background-color: transparent !important;
   border: none !important;
 }
@@ -177,3 +177,41 @@ h2, p {
   box-shadow: 0 0 20px rgba(255, 0, 0, 1);
   transform: scale(1.1);
 }
+
+/*    Sidebar   */
+#sidebarOffcanvas {
+  background: linear-gradient(to bottom, #1a1a1a, #000000);
+}
+
+#sidebarOffcanvas .nav-link {
+  font-weight: bold;
+  color: #ffffff;
+  transition: background 0.3s, padding-left 0.3s;
+}
+
+#sidebarOffcanvas .nav-link:hover {
+  background-color: #ff4d4d;
+  border-radius: 8px;
+  padding-left: 20px;
+  color: #fff;
+}
+
+#sidebarOffcanvas h4 {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #ff4d4d;
+}
+
+    .logout-btn {
+      width: 100%;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #ff0000, #8b0000);
+      font-weight: bold;
+      color: white;
+      padding: 0.5rem;
+      border: none;
+    }
+
+    .sidebar-toggle-btn {
+      z-index: 1050;
+    }

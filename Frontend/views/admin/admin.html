@@ -10,38 +10,47 @@
   <link rel="stylesheet" href="../../public/css/admin.css" />
 </head>
 <body class="dashboard-page">
-  <div class="d-flex">
-  <!--SideBar-->
-    <div id="sidebar" class="bg-dark text-white p-3 vh-100" style="min-width: 250px;">
+  <!-- Sidebar Toggle Button -->
+  <button class="btn btn-danger position-fixed top-0 start-0 m-3 sidebar-toggle-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
+    <i class="bi bi-list"></i>
+  </button>
+
+  <!-- Sidebar -->
+  <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="sidebarOffcanvas">
+    <div class="offcanvas-header">
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+    <div class="offcanvas-body">
       <div class="text-center mb-4">
         <img src="../../public/img/logos/jjk.jpg" alt="Logo" width="60" class="rounded-circle">
         <h4 class="mt-2">Admin</h4>
       </div>
       <ul class="nav flex-column">
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link text-white"><i class="bi bi-card-list me-2"></i>Cartas</a>
+          <a href="../user/perfil.html" class="nav-link"><i class="bi bi-person-fill me-2"></i>Perfil</a>
         </li>
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link text-white"><i class="bi bi-lightning-charge-fill me-2"></i>Poderes</a>
+          <a href="#" class="nav-link"><i class="bi bi-card-list me-2"></i>Cartas</a>
         </li>
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link text-white"><i class="bi bi-people-fill me-2"></i>Razas</a>
+          <a href="#" class="nav-link"><i class="bi bi-lightning-charge-fill me-2"></i>Poderes</a>
         </li>
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link text-white"><i class="bi bi-book me-2"></i>Hechizos</a>
+          <a href="#" class="nav-link"><i class="bi bi-people-fill me-2"></i>Razas</a>
         </li>
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link text-white"><i class="bi bi-shield-shaded me-2"></i>Tipo de Guerrero</a>
+          <a href="#" class="nav-link"><i class="bi bi-book me-2"></i>Hechizos</a>
         </li>
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link text-white"><i class="bi bi-people-fill me-2"></i>Usuarios</a>
+          <a href="#" class="nav-link"><i class="bi bi-shield-shaded me-2"></i>Tipo de Guerrero</a>
         </li>
         <li class="nav-item mb-2">
-          <a href="#" class="nav-link text-white"><i class="bi bi-controller me-2"></i>Combates</a>
+          <a href="#" class="nav-link"><i class="bi bi-people-fill me-2"></i>Usuarios</a>
         </li>
       </ul>
       <button class="logout-btn mt-4">Cerrar Sesión</button>
     </div>
+  </div>
 
     <!--Agregar Cartas-->
     <div class="container py-4">
@@ -103,10 +112,6 @@
           <div class="col-md-6">
             <label for="race" class="form-label">Raza</label>
             <input type="number" class="form-control" id="race" required />
-          </div>
-          <div class="col-md-6">
-            <label for="status" class="form-label">Estado</label>
-            <input type="text" class="form-control" id="status" required />
           </div>
           <div class="col-12">
             <label for="image" class="form-label">Imagen</label>
