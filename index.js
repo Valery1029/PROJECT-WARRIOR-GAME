@@ -1,6 +1,6 @@
 /* Author: Valery Escobar
 Date: 07/04/2025 */
-import app from './app/app.js';
+import app from './Backend/src/app/app.js';
 import dotenv from 'dotenv';
 
 dotenv.config({path: '../env'})

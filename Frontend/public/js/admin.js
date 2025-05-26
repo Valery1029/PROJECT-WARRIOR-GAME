@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
       intelligence: +intelligenceInput.value,
       type_warrior_id: +typeWarriorInput.value,
       race_id: +raceInput.value,
-      image: imageInput.files[0] ? `../img/cards/${imageInput.files[0].name}` : ""
+      image: imageInput.files[0] ? `../img/cards${imageInput.files[0].name}` : ""
     };
 
     const id = cardIdInput.value;
