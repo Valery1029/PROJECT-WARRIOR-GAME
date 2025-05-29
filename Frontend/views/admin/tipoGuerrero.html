@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/img/logos/jjk.jpg">
+  <title>Tipo de Guerrero</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+
+<body class="dashboard-page">
+  <!-- Sidebar Toggle Button -->
+  <button class="btn btn-danger position-fixed top-0 start-0 m-3 sidebar-toggle-btn" type="button"
+    data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
+    <i class="bi bi-list"></i>
+  </button>
+
+  <!-- Sidebar -->
+  <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="sidebarOffcanvas">
+    <div class="offcanvas-header">
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="text-center mb-4">
+        <img src="/img/logos/jjk.jpg" alt="Logo" width="60" class="rounded-circle">
+        <h4 class="mt-2">Admin</h4>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+          <a href="/profile" class="nav-link"><i class="bi bi-person-fill me-2"></i>Perfil</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="/admin" class="nav-link"><i class="bi bi-card-list me-2"></i>Cartas</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="/powers" class="nav-link"><i class="bi bi-lightning-charge-fill me-2"></i>Poderes</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="/races" class="nav-link"><i class="bi bi-people-fill me-2"></i>Razas</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="/spells" class="nav-link"><i class="bi bi-book me-2"></i>Hechizos</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="/typeWarrior" class="nav-link"><i class="bi bi-shield-shaded me-2"></i>Tipo de Guerrero</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="/users" class="nav-link"><i class="bi bi-people-fill me-2"></i>Usuarios</a>
+        </li>
+      </ul>
+      <button class="logout-btn mt-4" onclick="location.href='/login'">Cerrar Sesión</button>
+    </div>
+  </div>
+
+  <!--Agregar Tipo de Guerrero-->
+  <div class="container py-4">
+    <div class="text-end mb-3">
+      <button id="addType_WarriorBtn" class="btn btn-success">
+        <i class="bi bi-file-earmark-plus me-2"></i>Agregar Tipo de Guerrero
+      </button>
+    </div>
+
+    <div class="card bg-secondary">
+      <div class="card-header text-white bg-dark">
+        <h4 class="mb-0">Lista de Tipos de Guerreros</h4>
+      </div>
+      <div class="card-body">
+        <div id="type_warriorContainer" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4"></div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="type_warriorModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content bg-secondary text-white">
+        <div class="modal-header bg-dark">
+          <h5 class="modal-title" id="modalTitle">Crear / Editar Tipo de Guerrero</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <form id="type_warriorForm" class="modal-body row g-3">
+          <input type="hidden" id="type_warrior-id" />
+          <div class="col-md-6">
+            <label for="name" class="form-label">Nombre de Tipo de Guerrero</label>
+            <input type="text" class="form-control" id="name" required />
+          </div>
+          <div class="col-md-6">
+            <label for="description" class="form-label">Descripción</label>
+            <input type="text" class="form-control" id="description" required />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" id="btnSubmit" class="btn btn-danger">Guardar Raza</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/admin/tipoGuerrero.js"></script>
+</body>
+</html>

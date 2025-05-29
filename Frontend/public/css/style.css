@@ -40,7 +40,7 @@ h2, p {
 
 /* ──────────────── LOGIN ──────────────── */
 .login-page {
-  background: url('../../public/img/logos/login.png') no-repeat center center fixed;
+  background: url('/img/logos/login.png') no-repeat center center fixed;
   background-size: cover;
   height: 100vh;
 }
@@ -86,7 +86,7 @@ h2, p {
 
 /* ──────────────── SELECCIÓN DE CARTAS ──────────────── */
 .cards-page {
-  background: url('../../public/img/logos/fondo.png') no-repeat center center fixed;
+  background: url('/img/logos/fondo.png') no-repeat center center fixed;
   background-size: cover;
   height: 100vh;
 }

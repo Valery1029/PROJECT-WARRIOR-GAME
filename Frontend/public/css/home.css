@@ -1,5 +1,5 @@
 .home-page {
-  background: url('../../public/img/fondos/home.png') no-repeat center center fixed;
+  background: url('/img/fondos/home.png') no-repeat center center fixed;
   background-size: cover;
   min-height: 100vh;
   padding: 40px 20px;

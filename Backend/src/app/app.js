@@ -20,13 +20,6 @@ import apiUsersRoutes from '../routes/apiUsers.routes.js';
 
 const app = express();
 
-// Activar CORS
-app.use(cors({
-  origin: 'http://127.0.0.1:5500',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
-
 // Obtener ruta base (__dirname con ES Modules)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,19 +27,68 @@ const __dirname = path.dirname(__filename);
 // Middleware para leer JSON
 app.use(express.json());
 
-// Servir archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
+// Servir archivos estáticos (Frontend completo)
+app.use(express.static(path.join(__dirname, '../../../Frontend/public')));
 
-// Vistas HTML
+// CORS
+app.use(cors());
+
+// Vistas directas desde rutas si deseas mantenerlas
+// Usuario
 app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'login.html'));
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/login/login_view.html'));
 });
 
-app.get('/game/user1', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'game', 'user1_view.html'));
+app.get('/home', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/home/home_view.html'));
 });
 
-// Rutas API
+app.get('/game', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/game/cards_view.html'));
+});
+
+app.get('/battle', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/game/battle_view.html'));
+});
+
+app.get('/profile', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/user/perfil.html'));
+});
+
+app.get('/ranking', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/user/rank_view.html'));
+});
+
+app.get('/history', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/user/historial_view.html'));
+});
+
+//Admin
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/admin.html'));
+});
+
+app.get('/powers', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/poderes.html'));
+});
+
+app.get('/races', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/razas.html'));
+});
+
+app.get('/spells', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/hechizos.html'));
+});
+
+app.get('/typeWarrior', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/tipoGuerrero.html'));
+});
+
+app.get('/users', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/usuarios.html'));
+});
+
+// Rutas API (prefijo /gamev1)
 app.use('/gamev1', powersRoutes);
 app.use('/gamev1', spellsRoutes);
 app.use('/gamev1', typeWarriorRoutes);
@@ -60,9 +102,9 @@ app.use('/gamev1', matchesRoutes);
 app.use('/gamev1', apiUsersRoutes);
 
 // Ruta no encontrada
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(404).json({
-    message: 'Endpoint losses'
+    message: 'Endpoint not found'
   });
 });
 

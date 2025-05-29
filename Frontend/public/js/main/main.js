@@ -74,9 +74,9 @@ class Game {
     localStorage.setItem(storageKey, JSON.stringify(this.selectedCards));
 
     if (jugadorActual === 1) {
-      window.location.href = `cards_view.html?player=2`;
+      window.location.href = `/game?player=2`;
     } else {
-      window.location.href = `battle_view.html`;
+      window.location.href = `/battle`;
     }
   }
 

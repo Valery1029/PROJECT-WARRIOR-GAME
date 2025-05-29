@@ -1,7 +1,7 @@
 /* ──────────────── ADMIN ──────────────── */
 
 .dashboard-page {
-  background: url('../../public/img/logos/fondo.png') no-repeat center center fixed;
+  background: url('/img/logos/fondo.png') no-repeat center center fixed;
   background-size: cover;
   min-height: 100vh;
   padding: 40px 20px;
@@ -55,6 +55,19 @@
 
 .card-form .btn-success:hover {
   background: linear-gradient(90deg, #00994d, #008040);
+}
+
+.card-body .d-flex {
+  align-items: center;
+}
+
+.card-body .btn {
+  flex: 1;
+  max-width: 120px; /* Ajusta según sea necesario */
+}
+
+.card-body .d-flex {
+  gap: 10px;
 }
 
 .dashboard-cards {
@@ -137,6 +150,17 @@
   color: white !important;
   border-radius: 5px;
 }
+.sidebar-option:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+.sidebar-option.active {
+  background-color: #dc3545 !important;
+  color: white !important;
+  border-radius: 5px;
+}
+
 .sidebar-option:hover {
   background-color: #dc3545;
   color: white;
