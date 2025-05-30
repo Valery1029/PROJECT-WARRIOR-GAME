@@ -17,6 +17,8 @@ import warriorSpellsRoutes from '../routes/warriorSpells.routes.js';
 import warriorSelectionsRoutes from '../routes/warriorSelections.routes.js';
 import matchesRoutes from '../routes/matches.routes.js';
 import apiUsersRoutes from '../routes/apiUsers.routes.js';
+import roleRoutes from '../routes/role.routes.js';
+import profileRoutes from '../routes/profile.routes.js';
 
 const app = express();
 
@@ -51,7 +53,7 @@ app.get('/battle', (req, res) => {
   res.sendFile(path.join(__dirname, '../../../Frontend/views/game/battle_view.html'));
 });
 
-app.get('/profile', (req, res) => {
+app.get('/profileUser', (req, res) => {
   res.sendFile(path.join(__dirname, '../../../Frontend/views/user/perfil.html'));
 });
 
@@ -63,7 +65,7 @@ app.get('/history', (req, res) => {
   res.sendFile(path.join(__dirname, '../../../Frontend/views/user/historial_view.html'));
 });
 
-//Admin
+// Admin
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/admin.html'));
 });
@@ -88,6 +90,10 @@ app.get('/users', (req, res) => {
   res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/usuarios.html'));
 });
 
+app.get('/profileAdmin', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/perfil.html'));
+});
+
 // Rutas API (prefijo /gamev1)
 app.use('/gamev1', powersRoutes);
 app.use('/gamev1', spellsRoutes);
@@ -100,6 +106,9 @@ app.use('/gamev1', warriorSpellsRoutes);
 app.use('/gamev1', warriorSelectionsRoutes);
 app.use('/gamev1', matchesRoutes);
 app.use('/gamev1', apiUsersRoutes);
+app.use('/gamev1', roleRoutes);
+app.use('/gamev1', profileRoutes);
+
 
 // Ruta no encontrada
 app.use((req, res) => {

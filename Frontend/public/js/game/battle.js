@@ -1,8 +1,22 @@
 /* Author: Valery Escobar
  * Date: 12/04/2025
  */
+const sidebarToggleBtn = document.querySelector(".sidebar-toggle-btn");
+const sidebarOffcanvas = document.getElementById("sidebarOffcanvas");
+
+// Sidebar
+sidebarOffcanvas.addEventListener("shown.bs.offcanvas", () => {
+  sidebarToggleBtn.style.display = "none";
+});
+  sidebarOffcanvas.addEventListener("hidden.bs.offcanvas", () => {
+  sidebarToggleBtn.style.display = "block";
+});
+
 
 window.onload = () => {
+  // Mostrar nombre del usuario en sidebar
+  mostrarNombreUsuario("playerName");
+
   const jugador1 = JSON.parse(localStorage.getItem('jugador1_cartas')) || [];
   const jugador2 = JSON.parse(localStorage.getItem('jugador2_cartas')) || [];
 
@@ -13,6 +27,17 @@ window.onload = () => {
     startBattle(jugador1, jugador2);
   };
 };
+
+function mostrarNombreUsuario(idElemento) {
+  const userJSON = sessionStorage.getItem("user");
+  if (userJSON) {
+    const user = JSON.parse(userJSON);
+    const el = document.getElementById(idElemento);
+    if (el) {
+      el.textContent = user.name || user.username || "Jugador";
+    }
+  }
+}
 
 function renderBattleCards(cartas, containerId) {
   const container = document.querySelector(`#${containerId} .d-flex`);

@@ -112,8 +112,8 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const formData = {
-      race_name: nameInput.value,
-      race_description: descriptionInput.value,
+      name: nameInput.value,
+      description: descriptionInput.value,
     };
 
     const id = raceIdInput.value;
@@ -144,4 +144,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Inicializar la carga de razas
   loadRacesFromAPI();
+  mostrarNombreUsuario("playerName");
 });

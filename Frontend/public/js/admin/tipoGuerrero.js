@@ -115,8 +115,8 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const formData = {
-      type_warrior_name: nameInput.value,
-      type_warrior_description: descriptionInput.value,
+      name: nameInput.value,
+      description: descriptionInput.value,
     };
 
     const id = type_warriorIdInput.value;
@@ -147,4 +147,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Inicializar la carga de tipos de guerreros
   loadType_WarriorFromAPI();
+  mostrarNombreUsuario("playerName");
 });

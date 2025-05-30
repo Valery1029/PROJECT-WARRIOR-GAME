@@ -28,14 +28,18 @@ body {
 }
 
 /* Textos*/
-h2, p {
+h2,
+p {
   font-family: 'Bangers', cursive;
-  text-transform: uppercase; /* Hace que se vea más dinámico */
+  text-transform: uppercase;
+  /* Hace que se vea más dinámico */
 }
 
-h2, p {
+h2,
+p {
   color: white;
-  text-shadow: 0px 0px 10px rgba(255, 0, 0, 0.8); /* Brillo rojo */
+  text-shadow: 0px 0px 10px rgba(255, 0, 0, 0.8);
+  /* Brillo rojo */
 }
 
 /* ──────────────── LOGIN ──────────────── */
@@ -179,6 +183,15 @@ h2, p {
 }
 
 /*    Sidebar   */
+.btn-danger {
+  background: linear-gradient(90deg, #ff0000, #8b0000);
+  border: none;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(90deg, #b30000, #660000);
+}
+
 #sidebarOffcanvas {
   background: linear-gradient(to bottom, #1a1a1a, #000000);
 }
@@ -197,21 +210,21 @@ h2, p {
 }
 
 #sidebarOffcanvas h4 {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: #ff4d4d;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ff4d4d;
 }
 
-    .logout-btn {
-      width: 100%;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #ff0000, #8b0000);
-      font-weight: bold;
-      color: white;
-      padding: 0.5rem;
-      border: none;
-    }
+.logout-btn {
+  width: 100%;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #ff0000, #8b0000);
+  font-weight: bold;
+  color: white;
+  padding: 0.5rem;
+  border: none;
+}
 
-    .sidebar-toggle-btn {
-      z-index: 1050;
-    }
+.sidebar-toggle-btn {
+  z-index: 1050;
+}

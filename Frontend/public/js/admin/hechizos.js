@@ -115,9 +115,9 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     const formData = {
-      spell_name: nameInput.value,
-      spell_description: descriptionInput.value,
-      spell_percentage: percentageInput.value
+      name: nameInput.value,
+      description: descriptionInput.value,
+      percentage: percentageInput.value
     };
 
     const id = spellIdInput.value;
@@ -148,4 +148,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Inicializar la carga de hechizos
   loadSpellsFromAPI();
+  mostrarNombreUsuario("playerName");
 });

@@ -39,15 +39,23 @@ loginForm.addEventListener("submit", async (e) => {
       return;
     }
 
-    // Guardar token y usuario
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("user", JSON.stringify(data.user));
+    // Guardar token y datos del usuario
+    sessionStorage.setItem("token", data.token);
+    sessionStorage.setItem("user", JSON.stringify(data.user));
 
     // Limpiar formulario
     clearLoginForm();
 
-    // Redirigir
-    window.location.href = "/home";
+    // Redirección según el rol
+    const role = data.user.role;
+    if (role === 2) {
+      window.location.href = "/admin";
+    } else if (role === 1) {
+      window.location.href = "/home";
+    } else {
+      alert("Rol no reconocido. Contacta al administrador.");
+    }
+
   } catch (error) {
     alert("Error de conexión con el servidor.");
     console.error("Error en el login:", error);

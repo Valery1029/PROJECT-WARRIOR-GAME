@@ -14,6 +14,15 @@ export const verifyToken = (req, res, next) => {
     req.user = verified;
     next();
   } catch (err) {
+    console.error("Error en verifyToken:", err.message);
     res.status(400).json({ error: 'Invalid Token' });
   }
+};
+
+// Role
+export const isAdmin = (req, res, next) => {
+  if (req.user.role !== 2) {
+    return res.status(403).json({ message: 'Acceso denegado: solo administradores' });
+  }
+  next();
 };

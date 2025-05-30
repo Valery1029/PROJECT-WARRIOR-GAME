@@ -11,12 +11,13 @@ import {
   loginUser
 } from '../controllers/users.controller.js';
 import { verifyToken } from '../middleware/authMiddleware.js';
+import { isAdmin } from '../middleware/authMiddleware.js';
 
 const router = Router();
 const apiName = '/users';
 
 router.route(apiName)
-  .get(verifyToken, showUsers)
+  .get(verifyToken, isAdmin, showUsers)
   .post(addUser);
 
 router.route('/usersLogin')

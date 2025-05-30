@@ -63,7 +63,7 @@
 
 .card-body .btn {
   flex: 1;
-  max-width: 120px; /* Ajusta según sea necesario */
+  max-width: 120px;
 }
 
 .card-body .d-flex {
@@ -105,6 +105,15 @@
 
 .dashboard-cards .btn:hover {
   opacity: 0.85;
+}
+
+.btn-danger {
+  background: linear-gradient(90deg, #ff0000, #8b0000);
+  border: none;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(90deg, #b30000, #660000);
 }
 
 /* SideBar */
