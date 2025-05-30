@@ -59,8 +59,16 @@
 
   <div class="container profile-container">
     <div class="profile-header">
-      <img src="/img/logos/jjk.jpg" alt="Avatar" class="profile-avatar mb-3" />
-      <h2>Perfil del Jugador</h2>
+      <div class="profile-picture-wrapper mb-3">
+        <img id="profileImage" src="/img/logos/jjk.jpg" alt="Avatar" class="profile-avatar" />
+        <button id="editProfileImageBtn" class="edit-image-btn"
+          onclick="document.getElementById('profileImageInput').click()">
+          <i class="bi bi-camera-fill"></i>
+        </button>
+        <input type="file" id="profileImageInput" accept="image/*" style="display: none" />
+      </div>
+
+      <h2>Perfil de Administrador</h2>
     </div>
 
     <form>
@@ -74,28 +82,22 @@
           <label for="email" class="form-label">Correo Electrónico</label>
           <input type="email" id="email" class="form-control" disabled />
         </div>
-        <div class="col-md-4">
-          <label for="victories" class="form-label">Victorias</label>
-          <input type="number" id="victories" class="form-control" disabled />
-        </div>
-        <div class="col-md-4">
-          <label for="defeats" class="form-label">Derrotas</label>
-          <input type="number" id="defeats" class="form-control" disabled />
-        </div>
-        <div class="col-md-4">
-          <label for="score" class="form-label">Puntaje</label>
-          <input type="number" id="score" class="form-control" disabled />
-        </div>
       </div>
 
       <div class="edit-btn mt-4">
-        <button type="button" class="btn btn-dark" onclick="enableEdit()">Editar Perfil</button>
-        <button type="submit" class="btn btn-danger" id="saveProfileBtn" disabled>Guardar Cambios</button>
+        <button type="button" class="btn btn-dark" id="editToggleBtn" onclick="toggleEditMode()">
+          Editar Perfil
+        </button>
+        <button type="submit" class="btn btn-danger" id="saveProfileBtn" disabled>
+          Guardar Cambios
+        </button>
       </div>
+
     </form>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/admin/perfilAdmin.js"></script>
   <script src="/js/profile/userSession.js"></script>
 </body>
 

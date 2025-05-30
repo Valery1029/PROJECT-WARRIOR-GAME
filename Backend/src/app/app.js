@@ -91,7 +91,7 @@ app.get('/users', (req, res) => {
 });
 
 app.get('/profileAdmin', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/perfil.html'));
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/perfilAdmin.html'));
 });
 
 // Rutas API (prefijo /gamev1)

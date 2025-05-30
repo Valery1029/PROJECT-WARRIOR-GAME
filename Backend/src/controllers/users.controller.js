@@ -74,12 +74,17 @@ export const updateUser = async (req, res) => {
   try {
     const { name, email, password, role, image } = req.body;
 
-    if (!name || !email || !role) {
-      return res.status(400).json({ error: "Missing required fields (name, email or role)" });
+    if (!name || !email) {
+      return res.status(400).json({ error: "Missing required fields (name or email)" });
     }
 
-    let sqlQuery = "UPDATE users SET user_name = ?, user_email = ?, role_id = ?";
-    const values = [name, email, role];
+    let sqlQuery = "UPDATE users SET user_name = ?, user_email = ?";
+    const values = [name, email];
+
+    if (role) {
+      sqlQuery += ", role_id = ?";
+      values.push(role);
+    }
 
     if (password) {
       const hashedPassword = await encryptPassword(password);
@@ -106,7 +111,7 @@ export const updateUser = async (req, res) => {
         id: req.params.id,
         name,
         email,
-        role,
+        ...(role && { role }),
         ...(password && { password: "[updated]" }),
         ...(image && { image })
       }],
