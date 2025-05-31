@@ -2,6 +2,7 @@
  * Date: 12/04/2025 -->
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body class="cards-page">
   <!-- Sidebar Toggle Button -->
   <button class="btn btn-danger position-fixed top-0 start-0 m-3 sidebar-toggle-btn" type="button"
@@ -30,10 +32,12 @@
         <h4 class="mt-2">Player: <span id="playerName"></span></h4>
       </div>
       <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="/home" class="nav-link text-white"><i class="bi bi-house-door-fill me-2"></i>Home</a></li>
-        <li class="nav-item mb-2"><a href="/profileUser" class="nav-link text-white"><i class="bi bi-person-fill me-2"></i>Perfil</a></li>
-        <li class="nav-item mb-2"><a href="/ranking" class="nav-link text-white"><i class="bi bi-bar-chart-fill me-2"></i>Ranking</a></li>
-        <li class="nav-item mb-2"><a href="/history" class="nav-link text-white"><i class="bi bi-clock-history me-2"></i>Historial</a></li>
+        <li class="nav-item mb-2"><a href="/home" class="nav-link text-white"><i
+              class="bi bi-house-door-fill me-2"></i>Home</a></li>
+        <li class="nav-item mb-2"><a href="/profileUser" class="nav-link text-white"><i
+              class="bi bi-person-fill me-2"></i>Perfil</a></li>
+        <li class="nav-item mb-2"><a href="/ranking" class="nav-link text-white"><i
+              class="bi bi-bar-chart-fill me-2"></i>Ranking</a></li>
       </ul>
       <button class="logout-btn mt-4" onclick="location.href='/login'">Cerrar Sesión</button>
     </div>
@@ -82,9 +86,33 @@
     </div>
   </div>
 
+  <!-- Modal para ingresar nombre del ganador -->
+  <div id="modalNombreGanador" class="modal fade" tabindex="-1" aria-labelledby="modalNombreGanadorLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalNombreGanadorLabel">Registrar Ganador</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <label for="inputNombreGanador" class="form-label">Nombre del Ganador:</label>
+          <input type="text" id="inputNombreGanador" class="form-control" placeholder="Ingresa el nombre del ganador">
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="btnGuardarGanador" class="btn btn-success">Guardar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
   <!-- Lógica para la batalla -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/js/game/battle.js"></script>
   <script src="/js/profile/userSession.js"></script>
 </body>
+
 </html>

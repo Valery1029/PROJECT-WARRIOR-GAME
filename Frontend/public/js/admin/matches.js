@@ -125,11 +125,20 @@ document.addEventListener("DOMContentLoaded", () => {
           body: JSON.stringify(formData),
         });
       } else {
-        await fetch(API_URL, {
+        const response = await fetch(API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
+
+        if (response.ok) {
+          const nuevaPartida = await response.json();
+          sessionStorage.setItem("current_match_id", nuevaPartida.match_id);
+
+          console.log("ID de la nueva partida guardado:", nuevaPartida.match_id);
+        } else {
+          console.error("Error al crear la partida");
+        }
       }
 
       const modal = bootstrap.Modal.getInstance(document.getElementById("matchModal"));

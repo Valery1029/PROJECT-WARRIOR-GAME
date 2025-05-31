@@ -20,6 +20,7 @@ import apiUsersRoutes from '../routes/apiUsers.routes.js';
 import roleRoutes from '../routes/role.routes.js';
 import profileRoutes from '../routes/profile.routes.js';
 import uploadRoutes from '../routes/upload.routes.js';
+import winnersRoutes from '../routes/winners.routes.js';
 
 const app = express();
 
@@ -45,6 +46,10 @@ app.get('/login', (req, res) => {
 
 app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, '../../../Frontend/views/home/home_view.html'));
+});
+
+app.get('/partidas', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/home/partidas.html'));
 });
 
 app.get('/game', (req, res) => {
@@ -115,6 +120,7 @@ app.use('/gamev1', apiUsersRoutes);
 app.use('/gamev1', roleRoutes);
 app.use('/gamev1', profileRoutes);
 app.use('/gamev1', uploadRoutes);
+app.use('/gamev1', winnersRoutes);
 
 
 // Ruta no encontrada
