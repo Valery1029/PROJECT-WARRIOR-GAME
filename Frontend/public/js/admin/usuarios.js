@@ -154,4 +154,5 @@ document.addEventListener("DOMContentLoaded", () => {
   loadUsers();
   mostrarNombreUsuario("playerName");
   mostrarImagenPerfil("profileImage");
+  inicializarSidebar();
 });

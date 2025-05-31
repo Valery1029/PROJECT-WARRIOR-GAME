@@ -25,7 +25,7 @@
     </div>
     <div class="offcanvas-body">
       <div class="text-center mb-4">
-        <img src="/img/logos/jjk.jpg" alt="Logo" width="60" class="rounded-circle">
+        <img id="sidebarImage" class="sidebar-avatar rounded-circle" src="/img/logos/jjk.jpg" />
         <h4 class="mt-2">Admin: <span id="playerName"></span></h4>
       </div>
       <ul class="nav flex-column">
@@ -49,6 +49,9 @@
         </li>
         <li class="nav-item mb-2">
           <a href="/users" class="nav-link"><i class="bi bi-people-fill me-2"></i>Usuarios</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="/matches" class="nav-link"><i class="bi bi-controller me-2"></i>Partidas</a>
         </li>
       </ul>
       <button class="logout-btn mt-4" onclick="location.href='/login'">Cerrar Sesión</button>
@@ -109,4 +112,5 @@
   <script src="/js/admin/poderes.js"></script>
   <script src="/js/profile/userSession.js"></script>
 </body>
+
 </html>

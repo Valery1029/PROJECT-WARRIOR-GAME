@@ -8,9 +8,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Configurar almacenamiento
-const storage = multer.diskStorage({
+const storageCard = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../../../Frontend/public/img/uploads"));
+    cb(null, path.join(__dirname, "../../../Frontend/public/img/cards"));
   },
   filename: (req, file, cb) => {
     const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -18,14 +18,14 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage });
+const uploadCard = multer({ storage: storageCard });
 
-export const uploadMiddleware = upload.single("image");
+export const uploadCardMiddleware = uploadCard.single("image");
 
-export const handleUpload = (req, res) => {
+export const handleCardUpload = (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No file uploaded" });
-    const imagePath = `/img/uploads/${req.file.filename}`;
+    const imagePath = `/img/cards/${req.file.filename}`;
     res.status(200).json({ message: "Upload success", image: req.file.filename, imagePath });
   } catch (error) {
     console.error("Error en handleUpload:", error);

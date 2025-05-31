@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const API_URL = "http://localhost:3000/gamev1/users";
+  const UPLOAD_URL = "http://localhost:3000/gamev1/upload";
   const token = sessionStorage.getItem("token");
   const user = JSON.parse(sessionStorage.getItem("user"));
   const userId = user?.id;
@@ -50,9 +51,27 @@ document.addEventListener("DOMContentLoaded", () => {
       userNameInput.value = userData.user_name;
       userEmailInput.value = userData.user_email;
 
-      // Guardar valores originales para cancelación
+      // Actualizar imagen de perfil si existe
+      const imagePath = userData.user_image
+        ? `/img/uploads/${userData.user_image}`
+        : "/img/uploads/default.jpg";
+
+      document.getElementById("profileImage").src = imagePath;
+      const sidebarImage = document.querySelector(".offcanvas-body img");
+      if (sidebarImage) sidebarImage.src = imagePath;
+
+      // Guardar valores originales
       originalName = userData.user_name;
       originalEmail = userData.user_email;
+
+      // Actualizar sessionStorage con datos actualizados
+      sessionStorage.setItem("user", JSON.stringify({
+        ...user,
+        name: userData.user_name,
+        email: userData.user_email,
+        image: imagePath
+      }));
+
     } catch (err) {
       console.error("Error al cargar perfil:", err.message);
     }
@@ -63,14 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
     isEditing = !isEditing;
 
     if (isEditing) {
-      // Activar edición
       userNameInput.removeAttribute("disabled");
       userEmailInput.removeAttribute("disabled");
       saveProfileBtn.removeAttribute("disabled");
       editImageBtn.removeAttribute("disabled");
       editToggleBtn.textContent = "Cancelar";
     } else {
-      // Cancelar edición
       userNameInput.value = originalName;
       userEmailInput.value = originalEmail;
       userNameInput.setAttribute("disabled", true);
@@ -81,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // Editar perfil
+  // Guardar cambios de nombre y correo
   profileForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -111,9 +128,65 @@ document.addEventListener("DOMContentLoaded", () => {
       editToggleBtn.textContent = "Editar Perfil";
       isEditing = false;
 
-      loadUserProfile();
+      loadUserProfile(); // Recargar datos
+
     } catch (err) {
       console.error("Error guardando perfil:", err.message);
+    }
+  });
+
+  // Subir Imagen de perfil y actualizar en BD
+  profileImageInput.addEventListener("change", async () => {
+    const file = profileImageInput.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      // 1. Subir imagen al servidor
+      const uploadRes = await fetch(UPLOAD_URL, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        },
+        body: formData
+      });
+
+      if (!uploadRes.ok) throw new Error("Error al subir imagen");
+
+      const { image } = await uploadRes.json();
+
+      // 2. Actualizar usuario con nombre de imagen
+      const response = await fetch(`${API_URL}/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: userNameInput.value,
+          email: userEmailInput.value,
+          image
+        })
+      });
+
+      if (!response.ok) throw new Error("Error al actualizar imagen en el perfil");
+
+      const imagePath = `/img/uploads/${image}`;
+      document.getElementById("profileImage").src = imagePath;
+
+      const sidebarImage = document.querySelector(".offcanvas-body img");
+      if (sidebarImage) sidebarImage.src = imagePath;
+
+      // Actualizar sessionStorage
+      user.image = imagePath;
+      sessionStorage.setItem("user", JSON.stringify(user));
+
+      alert("Imagen de perfil actualizada correctamente.");
+
+    } catch (err) {
+      console.error("Error al cambiar imagen:", err.message);
     }
   });
 
@@ -125,9 +198,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (el && user) el.textContent = user.name || user.email;
   }
 
-  // Iniciar cargando datos
-  loadUserProfile();
-
   // Inicialmente botón de imagen deshabilitado
   editImageBtn.setAttribute("disabled", true);
+
+  // Cargar datos al iniciar
+  loadUserProfile();
 });

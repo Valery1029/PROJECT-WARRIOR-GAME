@@ -23,4 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
       link.classList.add("active");
     });
   });
+  // Datos de usuario
+  inicializarSidebar();
 });

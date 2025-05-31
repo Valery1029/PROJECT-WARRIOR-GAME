@@ -140,6 +140,15 @@
   color: #ff4d4d;
 }
 
+.sidebar-avatar {
+  width: 165px;
+  height: 165px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ff4d4d;
+  box-shadow: 0 0 8px rgba(255, 77, 77, 0.4);
+}
+
 .logout-btn {
   width: 100%;
   border-radius: 8px;
@@ -152,16 +161,6 @@
 
 .sidebar-toggle-btn {
   z-index: 1050;
-}
-
-.sidebar-option.active {
-  background-color: #dc3545 !important;
-  color: white !important;
-  border-radius: 5px;
-}
-.sidebar-option:hover {
-  background-color: #dc3545;
-  color: white;
 }
 
 .sidebar-option.active {

@@ -1,6 +1,6 @@
 import { connect } from "../config/db/connect.js";
 
-// GET
+// GET ALL
 export const showMatches = async (req, res) => {
   try {
     const sqlQuery = "SELECT * FROM matches";
@@ -11,7 +11,7 @@ export const showMatches = async (req, res) => {
   }
 };
 
-// GET ID
+// GET
 export const showMatchId = async (req, res) => {
   try {
     const sqlQuery = "SELECT * FROM matches WHERE match_id = ?";
@@ -26,14 +26,17 @@ export const showMatchId = async (req, res) => {
 // POST
 export const addMatch = async (req, res) => {
   try {
-    const { user1_id, user2_id, winner_id } = req.body;
-    if (!user1_id || !user2_id || !winner_id) {
+    const { match_name, match_duration, match_status } = req.body;
+
+    if (!match_name || match_duration == null || !match_status) {
       return res.status(400).json({ error: "Missing required fields" });
     }
-    const sqlQuery = "INSERT INTO matches (user1_id, user2_id, winner_id) VALUES (?, ?, ?)";
-    const [result] = await connect.query(sqlQuery, [user1_id, user2_id, winner_id]);
+
+    const sqlQuery = "INSERT INTO matches (match_name, match_duration, match_status) VALUES (?, ?, ?)";
+    const [result] = await connect.query(sqlQuery, [match_name, match_duration, match_status]);
+
     res.status(201).json({
-      data: [{ match_id: result.insertId, user1_id, user2_id, winner_id }],
+      data: [{ match_id: result.insertId, match_name, match_duration, match_status }],
       status: 201
     });
   } catch (error) {
@@ -44,16 +47,19 @@ export const addMatch = async (req, res) => {
 // PUT
 export const updateMatch = async (req, res) => {
   try {
-    const { user1_id, user2_id, winner_id } = req.body;
-    if (!user1_id || !user2_id || !winner_id) {
+    const { match_name, match_duration, match_status } = req.body;
+
+    if (!match_name || match_duration == null || !match_status) {
       return res.status(400).json({ error: "Missing required fields" });
     }
-    const sqlQuery = "UPDATE matches SET user1_id = ?, user2_id = ?, winner_id = ? WHERE match_id = ?";
-    const [result] = await connect.query(sqlQuery, [user1_id, user2_id, winner_id, req.params.id]);
+
+    const sqlQuery = "UPDATE matches SET match_name = ?, match_duration = ?, match_status = ? WHERE match_id = ?";
+    const [result] = await connect.query(sqlQuery, [match_name, match_duration, match_status, req.params.id]);
+
     if (result.affectedRows === 0) return res.status(404).json({ error: "Match not found" });
 
     res.status(200).json({
-      data: [{ user1_id, user2_id, winner_id }],
+      data: [{ match_name, match_duration, match_status }],
       status: 200,
       updated: result.affectedRows
     });
@@ -67,6 +73,7 @@ export const deleteMatch = async (req, res) => {
   try {
     const sqlQuery = "DELETE FROM matches WHERE match_id = ?";
     const [result] = await connect.query(sqlQuery, [req.params.id]);
+
     if (result.affectedRows === 0) return res.status(404).json({ error: "Match not found" });
 
     res.status(200).json({

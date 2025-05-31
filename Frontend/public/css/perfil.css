@@ -65,12 +65,12 @@ body {
   display: flex;
   justify-content: center;
   display: flex;
-  justify-content: center; /* 🔹 Centrar los botones */
-  gap: 15px; /* 🔹 Espacio uniforme entre ellos */
+  justify-content: center;
+  gap: 15px;
   margin-top: 20px;
 }
 
-/* SideBar */
+/*----------------- SideBar -----------------*/
 #sidebarOffcanvas {
   background: linear-gradient(to bottom, #1a1a1a, #000000);
 }
@@ -92,6 +92,15 @@ body {
   font-size: 1.3rem;
   font-weight: bold;
   color: #ff4d4d;
+}
+
+.sidebar-avatar {
+  width: 165px;
+  height: 165px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ff4d4d;
+  box-shadow: 0 0 8px rgba(255, 77, 77, 0.4);
 }
 
 .logout-btn {
@@ -119,31 +128,32 @@ body {
   color: white;
 }
 
-/* Imagen de Perfil*/
+/*-----------------  Imagen de Perfil  -----------------*/
 .profile-picture-wrapper {
   position: relative;
   display: inline-block;
 }
 
 .profile-avatar {
-  width: 120px;
-  height: 120px;
+  width: 300px;
+  height: 300px;
   object-fit: cover;
   border-radius: 50%;
-  border: 3px solid #ff4d4d;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border: 4px solid #ff4d4d;
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
 }
 
 .edit-image-btn {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 20px;
+  right: 20px;
   background-color: #ff4d4d;
   color: white;
   border: none;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 50px;
+  height: 50px;
+  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;

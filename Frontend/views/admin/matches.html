@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/png" href="/img/logos/jjk.jpg">
-  <title>Hechizos</title>
+  <title>Partidas</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/css/admin.css" />
@@ -58,50 +57,53 @@
     </div>
   </div>
 
-  <!--Agregar Hechizos-->
+  <!-- Agregar Partida -->
   <div class="container py-4">
     <div class="text-end mb-3">
-      <button id="addSpellsBtn" class="btn btn-success">
-        <i class="bi bi-file-earmark-plus me-2"></i>Agregar Hechizo
+      <button id="addMatchBtn" class="btn btn-success">
+        <i class="bi bi-file-earmark-plus me-2"></i>Agregar Partida
       </button>
     </div>
 
     <div class="card bg-secondary">
       <div class="card-header text-white bg-dark">
-        <h4 class="mb-0">Lista de Hechizos</h4>
+        <h4 class="mb-0">Lista de Partidas</h4>
       </div>
       <div class="card-body">
-        <div id="spellsContainer" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4"></div>
+        <div id="matchesContainer" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4"></div>
       </div>
     </div>
   </div>
 
-  </div>
   <!-- Modal -->
-  <div class="modal fade" id="spellsModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal fade" id="matchModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content bg-secondary text-white">
         <div class="modal-header bg-dark">
-          <h5 class="modal-title" id="modalTitle">Crear / Editar Hechizo</h5>
+          <h5 class="modal-title" id="modalTitle">Crear Partida</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
-        <form id="spellsForm" class="modal-body row g-3">
-          <input type="hidden" id="spell-id" />
+        <form id="matchForm" class="modal-body row g-3">
+          <input type="hidden" id="match-id" />
           <div class="col-md-6">
-            <label for="name" class="form-label">Nombre del Hechizo</label>
-            <input type="text" class="form-control" id="name" required />
+            <label for="matchName" class="form-label">Nombre de la Partida</label>
+            <input type="text" class="form-control" id="matchName" required />
           </div>
           <div class="col-md-6">
-            <label for="description" class="form-label">Descripción</label>
-            <input type="text" class="form-control" id="description" required />
+            <label for="matchDuration" class="form-label">Duración (minutos)</label>
+            <input type="number" class="form-control" id="matchDuration" required />
           </div>
           <div class="col-md-6">
-            <label for="percentage" class="form-label">Porcentaje</label>
-            <input type="number" class="form-control" id="percentage" required />
+            <label for="matchStatus" class="form-label">Estado</label>
+            <select class="form-control" id="matchStatus" required>
+              <option value="pendiente">Pendiente</option>
+              <option value="en curso">En Curso</option>
+              <option value="finalizado">Finalizado</option>
+            </select>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" id="btnSubmit" class="btn btn-danger">Guardar Poder</button>
+            <button type="submit" id="btnSubmit" class="btn btn-danger">Guardar Partida</button>
           </div>
         </form>
       </div>
@@ -109,8 +111,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/admin/hechizos.js"></script>
+  <script src="/js/admin/matches.js"></script>
   <script src="/js/profile/userSession.js"></script>
 </body>
-
 </html>

@@ -145,4 +145,5 @@ document.addEventListener("DOMContentLoaded", () => {
   // Inicializar la carga de razas
   loadRacesFromAPI();
   mostrarNombreUsuario("playerName");
+  inicializarSidebar();
 });

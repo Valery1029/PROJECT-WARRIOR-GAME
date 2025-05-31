@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 🔹 Protección y verificación de usuario
+  // --- Validar sesión y rol ---
   const token = sessionStorage.getItem("token");
   const user = JSON.parse(sessionStorage.getItem("user"));
   const role = Number(user?.role);
@@ -7,14 +7,14 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!token || !user) {
     window.location.href = "/login";
     return;
-  } else if (role !== 2) {
+  } else if (role !== 2) {  // suponiendo que 2 es admin
     window.location.href = "/home";
     return;
   }
 
+  // --- Constantes y referencias DOM ---
   const API_URL = "http://localhost:3000/gamev1/warriors";
 
-  // 🔹 Elementos de la UI
   const sidebarToggleBtn = document.querySelector(".sidebar-toggle-btn");
   const sidebarOffcanvas = document.getElementById("sidebarOffcanvas");
   const navLinks = document.querySelectorAll(".nav-link");
@@ -30,16 +30,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const speedInput = document.getElementById("speed");
   const intelligenceInput = document.getElementById("intelligence");
   const imageInput = document.getElementById("image");
+  const warriorImageInput = document.getElementById("warriorImageInput");
   const typeWarriorInput = document.getElementById("type_warrior");
   const raceInput = document.getElementById("race");
 
   let cards = [];
 
-  // 🔹 Ocultar y mostrar el botón del sidebar
+  // --- Sidebar toggle ---
   sidebarOffcanvas.addEventListener("shown.bs.offcanvas", () => sidebarToggleBtn.style.display = "none");
   sidebarOffcanvas.addEventListener("hidden.bs.offcanvas", () => sidebarToggleBtn.style.display = "block");
 
-  // 🔹 Resaltar la opción activa en el sidebar
+  // --- Activar link actual en el menú ---
   const currentPage = window.location.pathname.split("/").pop();
   navLinks.forEach(link => {
     if (link.getAttribute("href").split("/").pop() === currentPage) {
@@ -51,21 +52,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 🔹 Función para limpiar el formulario
+  // --- Función para resetear formulario ---
   const resetForm = () => {
     cardForm.reset();
     cardIdInput.value = "";
+    imageInput.value = "";
   };
 
-  // 🔹 Renderizar cartas en la UI
+  // --- Renderizar cartas en el contenedor ---
   const renderCards = () => {
     cardsContainer.innerHTML = "";
     cards.forEach(card => {
+      // Aquí se establece la imagen predeterminada si card.warrior_image no está definido o es vacío
+      const imgSrc = card.warrior_image && card.warrior_image.trim() !== ""
+        ? card.warrior_image
+        : "/img/cards/Back.jpg";
+
       const cardElement = document.createElement("div");
       cardElement.className = "col";
       cardElement.innerHTML = `
         <div class="card h-100">
-          <img src="${card.warrior_image}" class="card-img-top" alt="Carta">
+          <img src="${imgSrc}" class="card-img-top" alt="Carta">
           <div class="card-body bg-dark text-white">
             <h5 class="card-title">${card.warrior_name}</h5>
             <p class="card-text">
@@ -88,10 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // 🔹 Cargar cartas desde la API
+  // --- Cargar cartas desde API ---
   const loadCardsFromAPI = async () => {
     try {
       const response = await fetch(API_URL);
+      if (!response.ok) throw new Error("Error en la respuesta del servidor");
       cards = await response.json();
       renderCards();
     } catch (error) {
@@ -99,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // 🔹 Editar carta
+  // --- Editar carta ---
   window.editCard = async (id) => {
     const card = cards.find(c => c.warrior_id === id);
     if (!card) return;
@@ -114,78 +122,112 @@ document.addEventListener("DOMContentLoaded", () => {
     intelligenceInput.value = card.warrior_intelligence;
     typeWarriorInput.value = card.type_warrior_id;
     raceInput.value = card.race_id;
-    imageInput.value = card.warrior_image;
+
+    // Actualizar input oculto imageInput con la imagen, usando la imagen predeterminada si está vacía
+    imageInput.value = card.warrior_image && card.warrior_image.trim() !== ""
+      ? card.warrior_image
+      : "/img/cards/Back.jpg";
 
     const modal = new bootstrap.Modal(document.getElementById("cardModal"));
     modal.show();
   };
 
-  // 🔹 Eliminar carta
+  // --- Eliminar carta ---
   window.deleteCard = async (id) => {
     if (!confirm("¿Estás seguro de que quieres eliminar esta carta?")) return;
 
     try {
-      await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+      const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Error eliminando carta");
       await loadCardsFromAPI();
     } catch (error) {
       console.error("Error al eliminar carta:", error);
     }
   };
 
-  // 🔹 Agregar nueva carta
+  // --- Botón para agregar carta ---
   document.getElementById("addCardBtn").addEventListener("click", () => {
     modalTitle.textContent = "Agregar Carta";
-    cardForm.reset();
-    cardIdInput.value = "";
-
+    resetForm();
     const modal = new bootstrap.Modal(document.getElementById("cardModal"));
     modal.show();
   });
 
-  // 🔹 Guardar carta (Crear / Editar)
+  // --- Guardar carta (crear o editar) ---
   cardForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const formData = {
-      warrior_name: nameInput.value,
-      warrior_total_power: powerInput.value,
-      warrior_total_magic: magicInput.value,
-      warrior_health: lifeInput.value,
-      warrior_speed: speedInput.value,
-      warrior_intelligence: intelligenceInput.value,
+      name: nameInput.value,
+      total_power: powerInput.value,
+      total_magic: magicInput.value,
+      health: lifeInput.value,
+      speed: speedInput.value,
+      intelligence: intelligenceInput.value,
       type_warrior_id: typeWarriorInput.value,
       race_id: raceInput.value,
-      warrior_image: imageInput.value
+      image: imageInput.value
     };
 
     const id = cardIdInput.value;
 
     try {
+      let res;
       if (id) {
-        await fetch(`${API_URL}/${id}`, {
+        res = await fetch(`${API_URL}/${id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
       } else {
-        await fetch(API_URL, {
+        res = await fetch(API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
       }
 
+      if (!res.ok) throw new Error("Error guardando carta");
+
       const modal = bootstrap.Modal.getInstance(document.getElementById("cardModal"));
       modal.hide();
-      cardForm.reset();
+      resetForm();
       await loadCardsFromAPI();
     } catch (error) {
       console.error("Error guardando carta:", error);
     }
   });
 
-  // 🔹 Inicializar la carga de cartas
+  // --- Subir imagen ---
+  warriorImageInput.addEventListener("change", async () => {
+    const file = warriorImageInput.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const uploadRes = await fetch("http://localhost:3000/gamev1/card", {
+        method: "POST",
+        body: formData
+      });
+
+      if (!uploadRes.ok) throw new Error("Error al subir la imagen");
+
+      const { image } = await uploadRes.json();
+
+      // Actualizar el valor del input con la ruta completa de la imagen subida
+      imageInput.value = `/img/cards/${image}`;
+      alert("Imagen subida correctamente");
+    } catch (err) {
+      console.error("Error subiendo imagen:", err.message);
+      alert("Error al subir imagen");
+    }
+  });
+
+  // --- Carga inicial ---
   loadCardsFromAPI();
   mostrarNombreUsuario("playerName");
-  resetForm;
+  mostrarImagenPerfil("sidebarImage");
+  inicializarSidebar();
 });

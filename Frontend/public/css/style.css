@@ -182,7 +182,6 @@ p {
   transform: scale(1.1);
 }
 
-/*    Sidebar   */
 .btn-danger {
   background: linear-gradient(90deg, #ff0000, #8b0000);
   border: none;
@@ -192,6 +191,7 @@ p {
   background: linear-gradient(90deg, #b30000, #660000);
 }
 
+/*----------------- SideBar -----------------*/
 #sidebarOffcanvas {
   background: linear-gradient(to bottom, #1a1a1a, #000000);
 }
@@ -215,6 +215,15 @@ p {
   color: #ff4d4d;
 }
 
+.sidebar-avatar {
+  width: 165px;
+  height: 165px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ff4d4d;
+  box-shadow: 0 0 8px rgba(255, 77, 77, 0.4);
+}
+
 .logout-btn {
   width: 100%;
   border-radius: 8px;
@@ -227,4 +236,15 @@ p {
 
 .sidebar-toggle-btn {
   z-index: 1050;
+}
+
+.sidebar-option.active {
+  background-color: #dc3545 !important;
+  color: white !important;
+  border-radius: 5px;
+}
+
+.sidebar-option:hover {
+  background-color: #dc3545;
+  color: white;
 }

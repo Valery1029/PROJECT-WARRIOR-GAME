@@ -16,6 +16,7 @@ sidebarOffcanvas.addEventListener("shown.bs.offcanvas", () => {
 window.onload = () => {
   // Mostrar nombre del usuario en sidebar
   mostrarNombreUsuario("playerName");
+  mostrarImagenPerfil("sidebarImage");
 
   const jugador1 = JSON.parse(localStorage.getItem('jugador1_cartas')) || [];
   const jugador2 = JSON.parse(localStorage.getItem('jugador2_cartas')) || [];

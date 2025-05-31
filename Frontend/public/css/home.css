@@ -16,7 +16,6 @@
   transform: scale(1.05);
 }
 
-/* SideBar */
 .btn-danger {
   background: linear-gradient(90deg, #ff0000, #8b0000);
   border: none;
@@ -26,6 +25,7 @@
   background: linear-gradient(90deg, #b30000, #660000);
 }
 
+/* SideBar */
 #sidebarOffcanvas {
   background: linear-gradient(to bottom, #1a1a1a, #000000);
 }
@@ -49,6 +49,15 @@
   color: #ff4d4d;
 }
 
+.sidebar-avatar {
+  width: 165px;
+  height: 165px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ff4d4d;
+  box-shadow: 0 0 8px rgba(255, 77, 77, 0.4);
+}
+
 .logout-btn {
   width: 100%;
   border-radius: 8px;
@@ -68,6 +77,7 @@
   color: white !important;
   border-radius: 5px;
 }
+
 .sidebar-option:hover {
   background-color: #dc3545;
   color: white;

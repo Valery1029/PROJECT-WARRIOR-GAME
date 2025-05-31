@@ -14,33 +14,26 @@
 </head>
 <body class="cards-page">
   <!-- Sidebar Toggle Button -->
-  <button class="btn btn-danger position-fixed top-0 start-0 m-3 sidebar-toggle-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
+  <button class="btn btn-danger position-fixed top-0 start-0 m-3 sidebar-toggle-btn" type="button"
+    data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
     <i class="bi bi-list"></i>
   </button>
 
-  <!-- Sidebar -->
+  <!-- Sidebar jugador -->
   <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="sidebarOffcanvas">
     <div class="offcanvas-header">
       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
     </div>
     <div class="offcanvas-body">
       <div class="text-center mb-4">
-        <img src="/img/logos/jjk.jpg" alt="Logo" width="60" class="rounded-circle">
+        <img id="sidebarImage" class="sidebar-avatar rounded-circle" src="/img/logos/jjk.jpg" />
         <h4 class="mt-2">Player: <span id="playerName"></span></h4>
       </div>
       <ul class="nav flex-column">
-        <li class="nav-item mb-2">
-          <a href="/home" class="nav-link"><i class="bi bi-house-door-fill me-2"></i>Inicio</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a href="/profile" class="nav-link"><i class="bi bi-person-fill me-2"></i>Perfil</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a href="/ranking" class="nav-link"><i class="bi bi-trophy-fill me-2"></i>Ranking</a>
-        </li>
-        <li class="nav-item mb-2">
-          <a href="/history" class="nav-link"><i class="bi bi-controller me-2"></i>Historial de Partidas</a>
-        </li>
+        <li class="nav-item mb-2"><a href="/home" class="nav-link text-white"><i class="bi bi-house-door-fill me-2"></i>Home</a></li>
+        <li class="nav-item mb-2"><a href="/profileUser" class="nav-link text-white"><i class="bi bi-person-fill me-2"></i>Perfil</a></li>
+        <li class="nav-item mb-2"><a href="/ranking" class="nav-link text-white"><i class="bi bi-bar-chart-fill me-2"></i>Ranking</a></li>
+        <li class="nav-item mb-2"><a href="/history" class="nav-link text-white"><i class="bi bi-clock-history me-2"></i>Historial</a></li>
       </ul>
       <button class="logout-btn mt-4" onclick="location.href='/login'">Cerrar Sesión</button>
     </div>

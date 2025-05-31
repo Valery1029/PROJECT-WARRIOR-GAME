@@ -148,4 +148,5 @@ document.addEventListener("DOMContentLoaded", () => {
   // Inicializar la carga de tipos de guerreros
   loadType_WarriorFromAPI();
   mostrarNombreUsuario("playerName");
+  inicializarSidebar();
 });

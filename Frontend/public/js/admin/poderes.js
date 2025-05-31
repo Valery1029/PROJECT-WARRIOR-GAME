@@ -150,4 +150,5 @@ document.addEventListener("DOMContentLoaded", () => {
   // Inicializar la carga de poderes
   loadPowersFromAPI();
   mostrarNombreUsuario("playerName");
+  inicializarSidebar();
 });

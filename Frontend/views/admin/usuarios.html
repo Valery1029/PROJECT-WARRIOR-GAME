@@ -24,17 +24,23 @@
     </div>
     <div class="offcanvas-body">
       <div class="text-center mb-4">
-        <img id="profileImage" src="/img/users/default.jpg" alt="Imagen de perfil" width="60" class="rounded-circle">
+        <img id="sidebarImage" class="sidebar-avatar rounded-circle" src="/img/logos/jjk.jpg" />
         <h4 class="mt-2">Admin: <span id="playerName"></span></h4>
       </div>
       <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a href="/profileAdmin" class="nav-link"><i class="bi bi-person-fill me-2"></i>Perfil</a></li>
+        <li class="nav-item mb-2"><a href="/profileAdmin" class="nav-link"><i
+              class="bi bi-person-fill me-2"></i>Perfil</a></li>
         <li class="nav-item mb-2"><a href="/admin" class="nav-link"><i class="bi bi-card-list me-2"></i>Cartas</a></li>
-        <li class="nav-item mb-2"><a href="/powers" class="nav-link"><i class="bi bi-lightning-charge-fill me-2"></i>Poderes</a></li>
+        <li class="nav-item mb-2"><a href="/powers" class="nav-link"><i
+              class="bi bi-lightning-charge-fill me-2"></i>Poderes</a></li>
         <li class="nav-item mb-2"><a href="/races" class="nav-link"><i class="bi bi-people-fill me-2"></i>Razas</a></li>
         <li class="nav-item mb-2"><a href="/spells" class="nav-link"><i class="bi bi-book me-2"></i>Hechizos</a></li>
-        <li class="nav-item mb-2"><a href="/typeWarrior" class="nav-link"><i class="bi bi-shield-shaded me-2"></i>Tipo de Guerrero</a></li>
-        <li class="nav-item mb-2"><a href="/users" class="nav-link active"><i class="bi bi-people-fill me-2"></i>Usuarios</a></li>
+        <li class="nav-item mb-2"><a href="/typeWarrior" class="nav-link"><i class="bi bi-shield-shaded me-2"></i>Tipo
+            de Guerrero</a></li>
+        <li class="nav-item mb-2"><a href="/users" class="nav-link active"><i
+              class="bi bi-people-fill me-2"></i>Usuarios</a></li>
+        <li class="nav-item mb-2"><a href="/matches" class="nav-link active"><i
+              class="bi bi-controller me-2"></i>Partidas</a></li>
       </ul>
       <button class="logout-btn mt-4" onclick="location.href='/login'">Cerrar Sesión</button>
     </div>
@@ -100,4 +106,5 @@
   <script src="/js/admin/usuarios.js"></script>
   <script src="/js/profile/userSession.js"></script>
 </body>
+
 </html>

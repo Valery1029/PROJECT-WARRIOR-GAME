@@ -1,19 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
   const API_URL = "http://localhost:3000/gamev1/users";
-  const sidebarToggleBtn = document.querySelector(".sidebar-toggle-btn");
-  const sidebarOffcanvas = document.getElementById("sidebarOffcanvas");
-  const navLinks = document.querySelectorAll(".nav-link");
+  const token = sessionStorage.getItem("token");
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  const userId = user?.id;
 
-  const userIdInput = document.getElementById("user-id");
   const userNameInput = document.getElementById("username");
   const userEmailInput = document.getElementById("email");
   const userVictoriesInput = document.getElementById("victories");
   const userDefeatsInput = document.getElementById("defeats");
   const userScoreInput = document.getElementById("score");
+
   const saveProfileBtn = document.getElementById("saveProfileBtn");
+  const editToggleBtn = document.getElementById("editToggleBtn");
+  const profileImageInput = document.getElementById("profileImageInput");
+  const editImageBtn = document.getElementById("editProfileImageBtn");
   const profileForm = document.querySelector("form");
 
-  // Sidebar toggle behavior
+  let originalName = "", originalEmail = "";
+  let isEditing = false;
+
+  const sidebarToggleBtn = document.querySelector(".sidebar-toggle-btn");
+  const sidebarOffcanvas = document.getElementById("sidebarOffcanvas");
+
   sidebarOffcanvas.addEventListener("shown.bs.offcanvas", () => {
     sidebarToggleBtn.style.display = "none";
   });
@@ -21,105 +29,122 @@ document.addEventListener("DOMContentLoaded", () => {
     sidebarToggleBtn.style.display = "block";
   });
 
-  // Resaltar opción activa
-  const currentPage = window.location.pathname.split("/").pop();
-  navLinks.forEach(link => {
-    const href = link.getAttribute("href").split("/").pop();
-    if (href === currentPage) {
-      link.classList.add("active");
-    }
-  });
-
-  // Obtener ID del usuario
-  const userId = localStorage.getItem("userId");
-  if (!userId) {
-    console.error("No hay usuario logueado.");
-    return;
-  }
-
-  const token = localStorage.getItem("adminToken");
-  if (!token) {
-    console.error("No hay token disponible. Acceso restringido.");
-    return;
-  }
+  if (!user || !token) return;
 
   const loadUserProfile = async () => {
     try {
-      const response = await fetch(`${API_URL}/${userId}`, {
+      const res = await fetch(`${API_URL}/${userId}`, {
         headers: {
-          "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         }
       });
 
-      if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+      if (!res.ok) throw new Error("Error al cargar datos");
 
-      const user = await response.json();
+      const userData = await res.json();
 
-      // Cargar datos en inputs
-      userIdInput.value = user.user_id;
-      userNameInput.value = user.user_name;
-      userEmailInput.value = user.user_email;
-      userVictoriesInput.value = user.victories || 0;
-      userDefeatsInput.value = user.defeats || 0;
-      userScoreInput.value = user.score || 0;
+      userNameInput.value = userData.user_name;
+      userEmailInput.value = userData.user_email;
+      userVictoriesInput.value = userData.victories || 0;
+      userDefeatsInput.value = userData.defeats || 0;
+      userScoreInput.value = userData.score || 0;
 
-      localStorage.setItem("userName", user.user_name);
-    } catch (error) {
-      console.error("Error al cargar perfil:", error);
+      // Imagen
+      const profileImage = document.getElementById("profileImage");
+      const sidebarImage = document.getElementById("sidebarImage");
+      const imgPath = userData.user_image ? `/img/uploads/${userData.user_image}` : "/img/logos/jjk.jpg";
+      profileImage.src = imgPath;
+      if (sidebarImage) sidebarImage.src = imgPath;
+
+      // Actualizar sessionStorage
+      sessionStorage.setItem("user", JSON.stringify({
+        ...user,
+        name: userData.user_name,
+        email: userData.user_email,
+        image: imgPath
+      }));
+
+    } catch (err) {
+      console.error("Error:", err.message);
     }
   };
 
-  // Habilitar edición
-  window.enableEdit = () => {
-    userNameInput.removeAttribute("disabled");
-    userEmailInput.removeAttribute("disabled");
-    userVictoriesInput.removeAttribute("disabled");
-    userDefeatsInput.removeAttribute("disabled");
-    userScoreInput.removeAttribute("disabled");
-    saveProfileBtn.removeAttribute("disabled");
+  // Alternar modo edición
+  window.toggleEditMode = () => {
+    isEditing = !isEditing;
+
+    [userNameInput, userEmailInput, editImageBtn].forEach(input => input.disabled = !isEditing);
+    saveProfileBtn.disabled = !isEditing;
+    editToggleBtn.textContent = isEditing ? "Cancelar" : "Editar Perfil";
   };
 
   // Guardar perfil
   profileForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const formData = {
-      user_name: userNameInput.value,
-      user_email: userEmailInput.value,
-      victories: parseInt(userVictoriesInput.value),
-      defeats: parseInt(userDefeatsInput.value),
-      score: parseInt(userScoreInput.value)
+    const updatedData = {
+      name: userNameInput.value,
+      email: userEmailInput.value
     };
 
     try {
-      const response = await fetch(`${API_URL}/${userId}`, {
+      const res = await fetch(`${API_URL}/${userId}`, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(updatedData)
       });
 
-      if (!response.ok) throw new Error(`Error actualizando perfil: ${response.status}`);
-
-      alert("Perfil actualizado correctamente.");
+      if (!res.ok) throw new Error("Error al guardar perfil");
+      alert("Perfil actualizado");
+      toggleEditMode();
       loadUserProfile();
-    } catch (error) {
-      console.error("Error guardando perfil:", error);
+    } catch (err) {
+      console.error(err.message);
     }
   });
 
-  // Mostrar nombre del usuario en el sidebar
-  function mostrarNombreUsuario(elementId) {
-    const name = localStorage.getItem("userName");
-    const element = document.getElementById(elementId);
-    if (name && element) {
-      element.textContent = name;
-    }
-  }
+  // Subida de imagen
+  profileImageInput.addEventListener("change", async () => {
+    const file = profileImageInput.files[0];
+    if (!file) return;
 
-  loadUserProfile();
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const uploadRes = await fetch("http://localhost:3000/gamev1/upload", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        },
+        body: formData
+      });
+
+      const { image } = await uploadRes.json();
+
+      await fetch(`${API_URL}/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name: userNameInput.value, email: userEmailInput.value, image })
+      });
+
+      loadUserProfile();
+    } catch (err) {
+      console.error("Error al subir imagen:", err.message);
+    }
+  });
+
   mostrarNombreUsuario("playerName");
+  mostrarImagenPerfil("profileImage");
+  mostrarImagenPerfil("sidebarImage");
+
+  editImageBtn.setAttribute("disabled", true);
+  loadUserProfile();
+  inicializarSidebar();
 });

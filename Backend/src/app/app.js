@@ -19,6 +19,7 @@ import matchesRoutes from '../routes/matches.routes.js';
 import apiUsersRoutes from '../routes/apiUsers.routes.js';
 import roleRoutes from '../routes/role.routes.js';
 import profileRoutes from '../routes/profile.routes.js';
+import uploadRoutes from '../routes/upload.routes.js';
 
 const app = express();
 
@@ -28,6 +29,7 @@ const __dirname = path.dirname(__filename);
 
 // Middleware para leer JSON
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Servir archivos estáticos (Frontend completo)
 app.use(express.static(path.join(__dirname, '../../../Frontend/public')));
@@ -90,6 +92,10 @@ app.get('/users', (req, res) => {
   res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/usuarios.html'));
 });
 
+app.get('/matches', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/matches.html'));
+});
+
 app.get('/profileAdmin', (req, res) => {
   res.sendFile(path.join(__dirname, '../../../Frontend/views/admin/perfilAdmin.html'));
 });
@@ -108,6 +114,7 @@ app.use('/gamev1', matchesRoutes);
 app.use('/gamev1', apiUsersRoutes);
 app.use('/gamev1', roleRoutes);
 app.use('/gamev1', profileRoutes);
+app.use('/gamev1', uploadRoutes);
 
 
 // Ruta no encontrada

@@ -149,4 +149,5 @@ document.addEventListener("DOMContentLoaded", () => {
   // Inicializar la carga de hechizos
   loadSpellsFromAPI();
   mostrarNombreUsuario("playerName");
+  inicializarSidebar();
 });
